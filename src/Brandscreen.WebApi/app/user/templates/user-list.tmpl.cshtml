@@ -1,0 +1,55 @@
+﻿<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Users</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input name="Text" type="text" class="form-control" placeholder="Text" ng-model="vm.searchText">
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="vm.search()">Search</button>
+                <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
+            </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th class="col-md-4">Id</th>
+            <th class="col-md-6">Email</th>
+            <th class="col-md-1">Brandscreen</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in vm.userList.data">
+            <td>{{user.id}}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <div class="text-center">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="{{user.hasBrandscreenAccount}}"></span>
+                </div>
+            </td>
+            <td>
+                <div class="text-center">
+                    <a href="/user/edit/{{user.id}}">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div pager data="vm.userList"></div>

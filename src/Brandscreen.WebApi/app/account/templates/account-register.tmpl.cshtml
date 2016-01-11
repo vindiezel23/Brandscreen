@@ -1,0 +1,44 @@
+﻿@model Brandscreen.WebApi.Models.Mvc.Account.RegisterViewModel
+<h4>Create a new account.</h4>
+<hr/>
+
+<div class="row">
+    <div class="col-md-8">
+        <form name="registerForm" class="form-horizontal" action="@Url.Action("Register", "Account", new {area = ""})" role="form" novalidate>
+            <div class="form-group" ng-class="{'has-error': registerForm.email.$dirty && registerForm.email.$touched && (registerForm.email.$error.required || registerForm.email.$error.email)}">
+                @Html.LabelFor(m => m.Email, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    <input name="email" type="email" class="form-control" ng-model="vm.registerForm.email" ng-required="true"/>
+                    <span class="help-block" ng-show="registerForm.email.$dirty && registerForm.email.$touched && registerForm.email.$error.required">Email is required.</span>
+                    <span class="help-block" ng-show="registerForm.email.$dirty && registerForm.email.$touched && registerForm.email.$error.email">Email is invalid.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': registerForm.password.$dirty && registerForm.password.$touched && registerForm.password.$invalid}">
+                @Html.LabelFor(m => m.Password, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    <input name="password" type="password" class="form-control" ng-model="vm.registerForm.password" ng-required="true" ng-minlength="8"/>
+                    <span class="help-block" ng-show="registerForm.password.$dirty && registerForm.password.$touched && registerForm.password.$invalid">New password requires minimum 8 characters.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': registerForm.confirmPassword.$dirty && registerForm.confirmPassword.$error.match}">
+                @Html.LabelFor(m => m.ConfirmPassword, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    <input name="confirmPassword" type="password" class="form-control" ng-model="vm.registerForm.confirmPassword" match="vm.registerForm.password"/>
+                    <span class="help-block" ng-show="registerForm.confirmPassword.$dirty && registerForm.confirmPassword.$error.match">Password does match.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" class="btn btn-default" value="Register" ng-disabled="registerForm.$invalid" ng-click="vm.register()"/>
+                </div>
+            </div>
+
+            <p>
+                Already has an account? Go to @Html.ActionLink("Login", "Login", "Account")
+            </p>
+        </form>
+    </div>
+</div>

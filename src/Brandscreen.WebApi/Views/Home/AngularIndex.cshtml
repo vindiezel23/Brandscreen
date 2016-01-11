@@ -1,0 +1,59 @@
+﻿@using Brandscreen.Core.Security
+@using Brandscreen.WebApi.Helpers
+@model string
+
+<div>
+    <span ng-if="isViewLoading()" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+    <div breadcrumb></div>
+    <div notification></div>
+    <div ng-view></div>
+</div>
+
+@section scripts
+{
+    @if (Request.GetOwinContext().IsDebuggingEnabled())
+    {
+        <script src="/app/app.module.js"></script>
+        <script src="/app/app.config.js"></script>
+        <script src="/app/common/directive.factory.js"></script>
+
+        <script src="/app/shared/breadcrumb.service.js"></script>
+        <script src="/app/shared/breadcrumb.directive.js"></script>
+        <script src="/app/shared/header.controller.js"></script>
+        <script src="/app/shared/match.directive.js"></script>
+        <script src="/app/shared/notification.service.js"></script>
+        <script src="/app/shared/notification.directive.js"></script>
+        <script src="/app/shared/pager.directive.js"></script>
+        <script src="/app/shared/security.service.js"></script>
+
+        <script src="/app/account/account.controller.js"></script>
+        <script src="/app/account/account.route.js"></script>
+
+        <script src="/app/manage/manage.controller.js"></script>
+        <script src="/app/manage/manage.route.js"></script>
+
+        <script src="/app/user/user-list.controller.js"></script>
+        <script src="/app/user/user.controller.js"></script>
+        <script src="/app/user/user.route.js"></script>
+        <script src="/app/user/user.service.js"></script>
+
+        <script src="/app/help/help-list.controller.js"></script>
+        <script src="/app/help/help.controller.js"></script>
+        <script src="/app/help/help.route.js"></script>
+    }
+    else
+    {
+        <script src="/scripts/dist/app.min.js"></script>
+    }
+
+    <script type="text/javascript">
+        (function() {
+            'use strict';
+            angular.module('bsApp').run([
+                'securityService', function(securityService) {
+                    securityService.setCurrentUser(@Html.Angular().CurrentUser());
+                }
+            ]);
+        })();
+    </script>
+}

@@ -1,0 +1,39 @@
+@using System.Web.Http.Description
+@using System.Collections.ObjectModel
+@model Collection<ApiDescription>
+
+@{
+    // Group APIs by controller
+    var apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor).OrderBy(x => x.Key.ControllerName);
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="jumbotron">
+            <h1>Brandscreen Web API</h1>
+            <p>
+                This describes the resources that make up the official Brandscreen API v1. If you have any problems or requests please <a href="mailto:jwu@brandscreen.com">contact us</a>.
+            </p>
+        </div>
+        @foreach (var group in apiGroups)
+        {
+            @Html.DisplayFor(m => group, "ApiGroup")
+            <br />
+        }
+    </div>
+
+    <div class="col-md-3">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" id="navbar-side">
+            <ul class="nav">
+                @foreach (var group in apiGroups)
+                {
+                    <li>
+                        <a href="#@group.Key.ControllerName">@group.Key.ControllerName</a>
+                    </li>
+                }
+            </ul>
+
+            <a class="back-to-top" href="#top">Back to top</a>
+        </nav>
+    </div>
+</div><!--/row-->

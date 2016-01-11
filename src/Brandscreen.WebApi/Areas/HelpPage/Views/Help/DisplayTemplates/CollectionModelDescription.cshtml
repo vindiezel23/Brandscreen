@@ -1,0 +1,6 @@
+@using Brandscreen.WebApi.Areas.HelpPage.ModelDescriptions
+@model Brandscreen.WebApi.Areas.HelpPage.ModelDescriptions.CollectionModelDescription
+@if (Model.ElementDescription is ComplexTypeModelDescription)
+{
+    @Html.DisplayFor(m => m.ElementDescription)
+}

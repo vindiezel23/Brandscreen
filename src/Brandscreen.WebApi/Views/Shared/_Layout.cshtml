@@ -1,0 +1,56 @@
+﻿@using Brandscreen.Core.Security
+<!DOCTYPE html>
+<!--
+██████╗ ██████╗  █████╗ ███╗   ██╗██████╗ ███████╗ ██████╗██████╗ ███████╗███████╗███╗   ██╗
+██╔══██╗██╔══██╗██╔══██╗████╗  ██║██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝████╗  ██║
+██████╔╝██████╔╝███████║██╔██╗ ██║██║  ██║███████╗██║     ██████╔╝█████╗  █████╗  ██╔██╗ ██║
+██╔══██╗██╔══██╗██╔══██║██║╚██╗██║██║  ██║╚════██║██║     ██╔══██╗██╔══╝  ██╔══╝  ██║╚██╗██║
+██████╔╝██║  ██║██║  ██║██║ ╚████║██████╔╝███████║╚██████╗██║  ██║███████╗███████╗██║ ╚████║
+╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝
+
+-->
+<base href="/"/>
+<html ng-app="bsApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Brandscreen Web API</title>
+    @if (Request.GetOwinContext().IsDebuggingEnabled())
+    {
+        <link rel="stylesheet" href="/content/src/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/content/site.css"/>
+    }
+    else
+    {
+        <link rel="stylesheet" href="/content/dist/css/app.min.css"/>
+    }
+</head>
+
+<body>
+<header ng-include="'/shared/templates/header.tmpl.cshtml'"></header>
+
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Brandscreen</p>
+    </footer>
+</div>
+@if (Request.GetOwinContext().IsDebuggingEnabled())
+{
+    <script src="/scripts/src/modernizr.min.js"></script>
+    <script src="/scripts/src/jquery.min.js"></script>
+    <script src="/scripts/src/jquery.validate.min.js"></script>
+    <script src="/scripts/src/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/scripts/src/bootstrap.min.js"></script>
+    <script src="/scripts/src/respond.min.js"></script>
+    <script src="/scripts/src/angular.min.js"></script>
+    <script src="/scripts/src/angular-route.min.js"></script>
+}
+else
+{
+    <script src="/scripts/dist/vendor.min.js"></script>
+}
+@RenderSection("scripts", required: false)
+</body>
+</html>

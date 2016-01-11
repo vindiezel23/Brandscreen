@@ -1,0 +1,12 @@
+﻿<nav>
+    <ul class="pager">
+        <li class="Previous" ng-class="{disabled: !vm.pagedList.hasPreviousPage}">
+            <a href="{{vm.previousLink}}" ng-show="vm.pagedList.hasPreviousPage"><span aria-hidden="true">&larr;</span> Previous</a>
+            <a href="javascript:void(0)" ng-show="!vm.pagedList.hasPreviousPage"><span aria-hidden="true">&larr;</span> Previous</a>
+        </li>
+        <li class="Next" ng-class="{disabled: !vm.pagedList.hasNextPage}">
+            <a href="{{vm.nextLink}}" ng-show="vm.pagedList.hasNextPage">Next <span aria-hidden="true">&rarr;</span></a>
+            <a href="javascript:void(0)" ng-show="!vm.pagedList.hasNextPage">Next <span aria-hidden="true">&rarr;</span></a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,818 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.Default.props" Condition="Exists('..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.NuGet.props" Condition="Exists('..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.NuGet.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="Brandscreen.WebApi.Build.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E381492F-094E-4822-B3AE-3F927F2F858C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brandscreen.WebApi</RootNamespace>
+    <AssemblyName>Brandscreen.WebApi</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data\Brandscreen.WebApi.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data\Brandscreen.WebApi.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.DynamicProxy2, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.Extras.DynamicProxy2.3.0.7\lib\net40\Autofac.Extras.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc.Owin">
+      <HintPath>..\..\packages\Autofac.Mvc5.Owin.3.1.0\lib\net45\Autofac.Integration.Mvc.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Owin">
+      <HintPath>..\..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi.Owin, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.WebApi2.Owin.3.3.0\lib\net45\Autofac.Integration.WebApi.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation, Version=5.6.2.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation-Signed.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=5.6.2.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.WebApi-Signed.5.6.2.0\lib\Net45\FluentValidation.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Flurl, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Flurl.1.0.10\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Flurl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Flurl.Http.0.7.0\lib\net45\Flurl.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.3.1, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.1.1.3.1\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors">
+      <HintPath>..\..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Jwt, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Jwt.3.0.1\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MultipartDataMediaFormatter, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MultipartDataMediaFormatter.1.1.0.0\lib\net45\MultipartDataMediaFormatter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nito.AsyncEx, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Concurrent, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.Concurrent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Enlightenment, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.3.0.1\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=3.2.1.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\NLog.3.2.1\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.EntityFramework">
+      <HintPath>..\..\packages\PagedList.EntityFramework.1.0.1\lib\net45\PagedList.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Repository.Pattern, Version=3.3.5.1, Culture=neutral, PublicKeyToken=e598640c26ef2b0a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Repository.Pattern.3.3.5.1\lib\net451\Repository.Pattern.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Repository.Pattern.Ef6">
+      <HintPath>..\..\packages\Repository.Pattern.Ef6.3.3.5.1\lib\net451\Repository.Pattern.Ef6.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AutofacModules\FluentValidationModule.cs" />
+    <Compile Include="App_Start\AutofacModules\RepositoryTestModule.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\AutofacModules\RepositoryModule.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DevicesController.cs" />
+    <Compile Include="Controllers\_TemplateController.cs" />
+    <Compile Include="Controllers\_UserController.cs" />
+    <Compile Include="Controllers\_ManageController.cs" />
+    <Compile Include="Helpers\AntiForgeryTokenHelper.cs" />
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\IAngularHelper.cs" />
+    <Compile Include="Helpers\IJsonHelper.cs" />
+    <Compile Include="Jsons\JsonExtensions.cs" />
+    <Compile Include="Jsons\JsonResultEx.cs" />
+    <Compile Include="Jsons\ValidateJsonAntiForgeryToken.cs" />
+    <Compile Include="Models\AccountTermsPatchViewModel.cs" />
+    <Compile Include="Models\DeviceListViewModel.cs" />
+    <Compile Include="Models\Mvc\Account\CurrentUserViewModel.cs" />
+    <Compile Include="Models\Mvc\Manage\ChangePasswordViewModel.cs" />
+    <Compile Include="Models\Mvc\User\ApplicationUserUpdateViewModel.cs" />
+    <Compile Include="Models\Mvc\User\ApplicationUserListViewModel.cs" />
+    <Compile Include="Models\Mvc\User\ApplicationUserQueryViewModel.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\_AccountController.cs" />
+    <Compile Include="Controllers\AdTagTemplatesController.cs" />
+    <Compile Include="Controllers\AdvertisersController.cs" />
+    <Compile Include="Controllers\BrandsController.cs" />
+    <Compile Include="Controllers\CreativesController.cs" />
+    <Compile Include="Controllers\DoohController.cs" />
+    <Compile Include="Controllers\MembershipsController.cs" />
+    <Compile Include="Controllers\PartnersController.cs" />
+    <Compile Include="Controllers\PostmanApiController.cs" />
+    <Compile Include="Controllers\SegmentsController.cs" />
+    <Compile Include="Controllers\TimeZonesController.cs" />
+    <Compile Include="Filters\CreativeSizesControllerFilter.cs" />
+    <Compile Include="Filters\DoohControllerFilters.cs" />
+    <Compile Include="Filters\MembershipsControllerFilters.cs" />
+    <Compile Include="Filters\SegmentsControllerFilter.cs" />
+    <Compile Include="Models\Mvc\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Mvc\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\ApplicationRoleCreateViewModel.cs" />
+    <Compile Include="Models\ApplicationRoleViewModel.cs" />
+    <Compile Include="Models\ApplicationUserClaimModifyViewModel.cs" />
+    <Compile Include="Models\ApplicationUserClaimViewModel.cs" />
+    <Compile Include="Models\ApplicationUserCreateViewModel.cs" />
+    <Compile Include="Models\ApplicationUserListViewModel.cs" />
+    <Compile Include="Models\ApplicationUserPatchViewModel.cs" />
+    <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\CreativeParameterListViewModel.cs" />
+    <Compile Include="Models\CreativeSizeCreateViewModel.cs" />
+    <Compile Include="Models\CreativeSizePatchViewModel.cs" />
+    <Compile Include="Models\CreativeSizeQueryViewModel.cs" />
+    <Compile Include="Controllers\CreativeSizesController.cs" />
+    <Compile Include="Controllers\DealsController.cs" />
+    <Compile Include="Controllers\DomainListsController.cs" />
+    <Compile Include="Controllers\GeoLocationsController.cs" />
+    <Compile Include="Controllers\LanguagesController.cs" />
+    <Compile Include="Controllers\PlacementsController.cs" />
+    <Compile Include="Controllers\PublishersController.cs" />
+    <Compile Include="Controllers\StrategiesController.cs" />
+    <Compile Include="Controllers\VerticalsController.cs" />
+    <Compile Include="Filters\BrandsControllerFilters.cs" />
+    <Compile Include="Filters\CreativesControllerFilter.cs" />
+    <Compile Include="Filters\DealsControllerFilters.cs" />
+    <Compile Include="Filters\DomainListsControllerFilters.cs" />
+    <Compile Include="Filters\PlacementsControllerFilters.cs" />
+    <Compile Include="Filters\StrategiesControllerFilters.cs" />
+    <Compile Include="Filters\CampaignsControllerFilters.cs" />
+    <Compile Include="Filters\UsersControllerFilters.cs" />
+    <Compile Include="Filters\AdvertisersControllerFilters.cs" />
+    <Compile Include="Mappings\AutoMapperModule.cs" />
+    <Compile Include="Mappings\MappingEngineWrapper.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\_HomeController.cs" />
+    <Compile Include="Controllers\CampaignsController.cs" />
+    <Compile Include="Filters\AccountsControllerFilters.cs" />
+    <Compile Include="Filters\FilterExtensions.cs" />
+    <Compile Include="Models\AccountPatchViewModel.cs" />
+    <Compile Include="Models\AccountListViewModel.cs" />
+    <Compile Include="Models\AccountCreateViewModel.cs" />
+    <Compile Include="Models\AccountStatusViewModel.cs" />
+    <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Mappings\AutoMapperExtensions.cs" />
+    <Compile Include="Models\AdTagTemplateListViewModel.cs" />
+    <Compile Include="Models\AdvertiserListViewModel.cs" />
+    <Compile Include="Models\AccountQueryViewModel.cs" />
+    <Compile Include="Models\AdvertiserCreateViewModel.cs" />
+    <Compile Include="Models\AdvertiserPatchViewModel.cs" />
+    <Compile Include="Models\AdvertiserQueryViewModel.cs" />
+    <Compile Include="Models\AdvertiserViewModel.cs" />
+    <Compile Include="Models\BrandCreateViewModel.cs" />
+    <Compile Include="Models\BrandListViewModel.cs" />
+    <Compile Include="Models\BrandPatchViewModel.cs" />
+    <Compile Include="Models\BrandQueryViewModel.cs" />
+    <Compile Include="Models\BrandViewModel.cs" />
+    <Compile Include="Models\CreativeAdTagCreateViewModel.cs" />
+    <Compile Include="Models\CreativeDoohCreateViewModel.cs" />
+    <Compile Include="Models\CreativeDoohVideoCreateViewModel.cs" />
+    <Compile Include="Models\CreativeDoohVideoUrlCreateViewModel.cs" />
+    <Compile Include="Models\CreativeFileViewModel.cs" />
+    <Compile Include="Models\CreativeHtml5CreateViewModel.cs" />
+    <Compile Include="Models\CreativeParameterViewModel.cs" />
+    <Compile Include="Models\CreativePatchViewModel.cs" />
+    <Compile Include="Models\CreativeCreateViewModel.cs" />
+    <Compile Include="Models\CreativeQueryViewModel.cs" />
+    <Compile Include="Models\CreativeReviewListViewModel.cs" />
+    <Compile Include="Models\CreativeReviewViewModel.cs" />
+    <Compile Include="Models\CreativeSizeListViewModel.cs" />
+    <Compile Include="Models\CreativeSizeViewModel.cs" />
+    <Compile Include="Models\CreativeSwiffyCreateViewModel.cs" />
+    <Compile Include="Models\CreativeVastCreateViewModel.cs" />
+    <Compile Include="Models\CreativeViewModel.cs" />
+    <Compile Include="Models\CreativeListViewModel.cs" />
+    <Compile Include="Models\CampaignPatchViewModel.cs" />
+    <Compile Include="Models\CampaignCreateViewModel.cs" />
+    <Compile Include="Models\DealCreateViewModel.cs" />
+    <Compile Include="Models\DealPatchViewModel.cs" />
+    <Compile Include="Models\DealQueryViewModel.cs" />
+    <Compile Include="Models\DealViewModel.cs" />
+    <Compile Include="Models\DealListViewModel.cs" />
+    <Compile Include="Models\DomainListViewModel.cs" />
+    <Compile Include="Models\DoohGeoLocationGroupViewModel.cs" />
+    <Compile Include="Models\DoohLocationViewModel.cs" />
+    <Compile Include="Models\DoohPanelLocationCreateViewModel.cs" />
+    <Compile Include="Models\DoohPanelLocationPatchViewModel.cs" />
+    <Compile Include="Models\DoohPanelLocationViewModel.cs" />
+    <Compile Include="Models\DoohPanelViewModel.cs" />
+    <Compile Include="Models\GeoCityViewModel.cs" />
+    <Compile Include="Models\GeoCountryViewModel.cs" />
+    <Compile Include="Models\GeoLocationViewModel.cs" />
+    <Compile Include="Models\GeoMetroViewModel.cs" />
+    <Compile Include="Models\GeoRegionViewModel.cs" />
+    <Compile Include="Models\LanguageListViewModel.cs" />
+    <Compile Include="Models\PartnerViewModel.cs" />
+    <Compile Include="Models\PlacementPutViewModel.cs" />
+    <Compile Include="Models\PlacementViewModel.cs" />
+    <Compile Include="Models\PlacementListViewModel.cs" />
+    <Compile Include="Models\PlacementQueryViewModel.cs" />
+    <Compile Include="Models\Postman\PostmanCollectionGet.cs" />
+    <Compile Include="Models\Postman\PostmanFolderGet.cs" />
+    <Compile Include="Models\Postman\PostmanRequestGet.cs" />
+    <Compile Include="Models\PublisherListViewModel.cs" />
+    <Compile Include="Models\PublisherQueryViewModel.cs" />
+    <Compile Include="Models\PublisherViewModel.cs" />
+    <Compile Include="Models\SegmentConversionCreateViewModel.cs" />
+    <Compile Include="Models\SegmentConversionPatchViewModel.cs" />
+    <Compile Include="Models\SegmentListViewModel.cs" />
+    <Compile Include="Models\SegmentQueryViewModel.cs" />
+    <Compile Include="Models\SegmentRemarketingCreateViewModel.cs" />
+    <Compile Include="Models\SegmentRemarketingPatchViewModel.cs" />
+    <Compile Include="Models\SegmentThirdPartyCreateViewModel.cs" />
+    <Compile Include="Models\SegmentThirdPartyPatchViewModel.cs" />
+    <Compile Include="Models\SegmentViewModel.cs" />
+    <Compile Include="Models\StrategyBrandSafetyViewModel.cs" />
+    <Compile Include="Models\StrategyCreateViewModel.cs" />
+    <Compile Include="Models\StrategyDayPartViewModel.cs" />
+    <Compile Include="Models\StrategyDealViewModel.cs" />
+    <Compile Include="Models\StrategyDeviceViewModel.cs" />
+    <Compile Include="Models\StrategyDomainListViewModel.cs" />
+    <Compile Include="Models\StrategyDoohGeoLocationGroupViewModel.cs" />
+    <Compile Include="Models\StrategyDoohPanelLocationViewModel.cs" />
+    <Compile Include="Models\StrategyGeoLocationViewModel.cs" />
+    <Compile Include="Models\StrategyGeoPostcodeViewModel.cs" />
+    <Compile Include="Models\StrategyInventoryViewModel.cs" />
+    <Compile Include="Models\StrategyLanguageViewModel.cs" />
+    <Compile Include="Models\StrategyMobileCarrierViewModel.cs" />
+    <Compile Include="Models\StrategyPagePositionViewModel.cs" />
+    <Compile Include="Models\StrategyPartnerSeatViewModel.cs" />
+    <Compile Include="Models\StrategyPatchViewModel.cs" />
+    <Compile Include="Models\StrategyQueryViewModel.cs" />
+    <Compile Include="Models\CampaignQueryViewModel.cs" />
+    <Compile Include="Models\StrategyListViewModel.cs" />
+    <Compile Include="Models\StrategySegmentViewModel.cs" />
+    <Compile Include="Models\StrategySupplySourceViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingCityPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingCountryPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingDayPartPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingDevicePutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingDomainListPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingDoohGeoLocationPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingDoohPanelLocationPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingItemViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingGeoPostcodeViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingLanguagePutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingMobileCarrierPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingMobileCarrierViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingPagePositionPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingPartnerPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingPostcodePutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingPublisherPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingRegionPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingSegmentPutViewModel.cs" />
+    <Compile Include="Models\StrategyTargetingVerticalPutViewModel.cs" />
+    <Compile Include="Models\StrategyVerticalViewModel.cs" />
+    <Compile Include="Models\TimeZoneListViewModel.cs" />
+    <Compile Include="Models\UserDeleteViewModel.cs" />
+    <Compile Include="Models\UserPatchViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\UserListViewModel.cs" />
+    <Compile Include="Models\UserQueryViewModel.cs" />
+    <Compile Include="Models\VerticalListViewModel.cs" />
+    <Compile Include="Models\VerticalQueryViewModel.cs" />
+    <Compile Include="Paginations\IPagination.cs" />
+    <Compile Include="Paginations\PagedListMapper.cs" />
+    <Compile Include="Paginations\PagedListViewModel.cs" />
+    <Compile Include="Paginations\PaginationExtensions.cs" />
+    <Compile Include="Models\ReportCriteriaViewModel.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Filters\ReportsControllerFilters.cs" />
+    <Compile Include="Logging\CastleToOwinLoggerAdapter.cs" />
+    <Compile Include="Logging\CastleToOwinFactoryAdapter.cs" />
+    <Compile Include="Logging\LoggingModule.cs" />
+    <Compile Include="Logging\WebApiExceptionHandler.cs" />
+    <Compile Include="Logging\WebApiExceptionLogger.cs" />
+    <Compile Include="Models\StrategyViewModel.cs" />
+    <Compile Include="Models\CampaignListViewModel.cs" />
+    <Compile Include="Models\CampaignViewModel.cs" />
+    <Compile Include="Models\UserCreateViewModel.cs" />
+    <Compile Include="Models\UserRegisterViewModel.cs" />
+    <Compile Include="App_Start\Handlers\HostEventsHandler.cs" />
+    <Compile Include="App_Start\AutofacModules\WebModule.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\Brandscreen.WebApi.XML" />
+    <Content Include="Content\Images\brzx_logo.png" />
+    <Content Include="Content\Site.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Areas\HelpPage\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Brandscreen.WebApi.nuspec" />
+    <Content Include="AppSettings.config">
+      <TransformOnBuild>true</TransformOnBuild>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="gulpfile.js" />
+    <Content Include="NLog.config">
+      <TransformOnBuild>true</TransformOnBuild>
+    </Content>
+    <Content Include="ConnectionStrings.config">
+      <TransformOnBuild>true</TransformOnBuild>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include=".bowerrc" />
+    <None Include="AppSettings.Debug.config">
+      <DependentUpon>AppSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="AppSettings.Production.config">
+      <DependentUpon>AppSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="AppSettings.Release.config">
+      <DependentUpon>AppSettings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <Content Include="app\user\templates\user-edit.tmpl.cshtml" />
+    <Content Include="app\Web.config" />
+    <Content Include="app\shared\templates\error-404.tmpl.cshtml" />
+    <Content Include="app\shared\templates\error-general.tmpl.cshtml" />
+    <Content Include="app\user\templates\user-list.tmpl.cshtml" />
+    <Content Include="app\shared\templates\pager.tmpl.cshtml" />
+    <Content Include="app\shared\templates\notification.tmpl.cshtml" />
+    <Content Include="app\shared\templates\breadcrumb.tmpl.cshtml" />
+    <Content Include="app\manage\templates\manage.tmpl.cshtml" />
+    <Content Include="app\manage\templates\manage-password.tmpl.cshtml" />
+    <Content Include="app\account\templates\account-login.tmpl.cshtml" />
+    <Content Include="app\account\templates\account-register.tmpl.cshtml" />
+    <Content Include="app\shared\templates\header.tmpl.cshtml" />
+    <Content Include="app\help\templates\help.tmpl.cshtml" />
+    <Content Include="bower.json" />
+    <Content Include="Brandscreen.WebApi.Build.props" />
+    <Content Include="Brandscreen.WebApi.Build.targets" />
+    <None Include="ConnectionStrings.Debug.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="ConnectionStrings.Production.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="ConnectionStrings.Release.config">
+      <DependentUpon>ConnectionStrings.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <Compile Include="Controllers\StrategiesController.Targetings.cs">
+      <DependentUpon>StrategiesController.cs</DependentUpon>
+    </Compile>
+    <None Include="NLog.Debug.config">
+      <DependentUpon>NLog.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="NLog.Production.config">
+      <DependentUpon>NLog.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="NLog.Release.config">
+      <DependentUpon>NLog.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
+    <Content Include="package.json" />
+    <Content Include="robots.txt" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Compile Include="Startup.Web.cs">
+      <DependentUpon>Startup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.Http.cs">
+      <DependentUpon>Startup.cs</DependentUpon>
+    </Compile>
+    <Content Include="Views\Home\AngularIndex.cshtml" />
+    <None Include="Web.BASE.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.BASE.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.config">
+      <DependentUpon>Web.BASE.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.BASE.config</DependentUpon>
+    </None>
+    <Content Include="Scripts\_references.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Brandscreen.Analytics.Entities\Brandscreen.Analytics.Entities.csproj">
+      <Project>{800ed4b6-56e4-411d-aff4-c90dba99ec29}</Project>
+      <Name>Brandscreen.Analytics.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brandscreen.Core\Brandscreen.Core.csproj">
+      <Project>{7555a6d2-208c-49b7-b2cf-8763c0492fea}</Project>
+      <Name>Brandscreen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brandscreen.Entities\Brandscreen.Entities.csproj">
+      <Project>{46d8900d-adcc-4dad-b7a6-de220aaaccdc}</Project>
+      <Name>Brandscreen.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brandscreen.Framework\Brandscreen.Framework.csproj">
+      <Project>{497d6f8f-4b3a-4305-8f77-2e9bbf7e044e}</Project>
+      <Name>Brandscreen.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="app\account\account.controller.ts" />
+    <TypeScriptCompile Include="app\account\account.route.ts" />
+    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\app.config.ts" />
+    <TypeScriptCompile Include="app\help\help-list.controller.ts" />
+    <TypeScriptCompile Include="app\help\help.route.ts" />
+    <TypeScriptCompile Include="app\help\help.controller.ts" />
+    <TypeScriptCompile Include="app\manage\manage.route.ts" />
+    <TypeScriptCompile Include="app\manage\manage.controller.ts" />
+    <TypeScriptCompile Include="app\shared\breadcrumb.service.ts" />
+    <TypeScriptCompile Include="app\shared\breadcrumb.directive.ts" />
+    <TypeScriptCompile Include="app\common\directive.factory.ts" />
+    <TypeScriptCompile Include="app\shared\header.controller.ts" />
+    <TypeScriptCompile Include="app\shared\match.directive.ts" />
+    <TypeScriptCompile Include="app\shared\notification.directive.ts" />
+    <TypeScriptCompile Include="app\shared\notification.service.ts" />
+    <TypeScriptCompile Include="app\shared\pager.directive.ts" />
+    <TypeScriptCompile Include="app\shared\security.service.ts" />
+    <TypeScriptCompile Include="app\user\user-list.controller.ts" />
+    <TypeScriptCompile Include="app\user\user.service.ts" />
+    <TypeScriptCompile Include="app\user\user.route.ts" />
+    <TypeScriptCompile Include="app\user\user.controller.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\bootstrap\bootstrap.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\es6-promise\es6-promise.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>App_Data\Brandscreen.WebApi.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Label="SlowCheetah">
+    <SlowCheetahToolsPath>$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\..\packages\SlowCheetah.2.5.15\tools\))</SlowCheetahToolsPath>
+    <SlowCheetah_EnableImportFromNuGet Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='' ">true</SlowCheetah_EnableImportFromNuGet>
+    <SlowCheetah_NuGetImportPath Condition=" '$(SlowCheetah_NuGetImportPath)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\Properties\SlowCheetah\SlowCheetah.Transforms.targets ))</SlowCheetah_NuGetImportPath>
+    <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>
+    </TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.targets" Condition="Exists('..\..\packages\Microsoft.TypeScript.MSBuild.1.8.6\tools\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != '' And Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')" />
+  <Import Project="$(SolutionDir)\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0\tools\VSToolsPath\WebApplications\Microsoft.WebApplication.targets" Condition="('$(VSToolsPath)' == '' Or !Exists('$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets')) And Exists('$(SolutionDir)\packages\MSBuild.Microsoft.VisualStudio.Web.targets.14.0.0\tools\VSToolsPath\WebApplications\Microsoft.WebApplication.targets')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2167</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2132/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <Import Project="$(SlowCheetahTargets)" Condition="Exists('$(SlowCheetahTargets)')" Label="SlowCheetah" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="Brandscreen.WebApi.Build.targets" />
+  <Import Project="..\..\packages\OctoPack.3.0.60\tools\OctoPack.targets" Condition="Exists('..\..\packages\OctoPack.3.0.60\tools\OctoPack.targets')" />
+  <Target Name="EnsureOctoPackImported" BeforeTargets="BeforeBuild" Condition="'$(OctoPackImported)' == ''">
+    <Error Condition="!Exists('..\..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+</Project>

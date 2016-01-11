@@ -1,0 +1,6 @@
+﻿<ol class="breadcrumb">
+    <li ng-if="false" ng-repeat-start="step in vm.breadcrumb.steps"></li>
+    <li ng-if="!$last"><a href="{{::step.path}}">{{::step.name}}</a></li>
+    <li class="active" ng-if="$last">{{::vm.breadcrumb.label.text || step.name}}</li>
+    <li ng-if="false" ng-repeat-end></li>
+</ol>

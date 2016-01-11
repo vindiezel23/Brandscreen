@@ -1,0 +1,46 @@
+﻿@model Brandscreen.WebApi.Models.Mvc.Account.LoginViewModel
+<h4>Use a local account to log in.</h4>
+<hr/>
+
+<div class="row">
+    <div class="col-md-8">
+        <form name="loginForm" class="form-horizontal" action="@Url.Action("Login", "Account", new {area = ""})" role="form" novalidate>
+            <div class="form-group" ng-class="{'has-error': loginForm.email.$dirty && loginForm.email.$touched && (loginForm.email.$error.required || loginForm.email.$error.email)}">
+                @Html.LabelFor(m => m.Email, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    <input name="email" type="email" class="form-control" ng-model="vm.loginForm.email" ng-required="true"/>
+                    <span class="help-block" ng-show="loginForm.email.$dirty && loginForm.email.$touched && loginForm.email.$error.required">Email is required.</span>
+                    <span class="help-block" ng-show="loginForm.email.$dirty && loginForm.email.$touched && loginForm.email.$error.email">Email is invalid.</span>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': loginForm.password.$dirty && loginForm.password.$error.required}">
+                @Html.LabelFor(m => m.Password, new {@class = "col-md-2 control-label"})
+                <div class="col-md-10">
+                    <input name="password" type="password" class="form-control" ng-model="vm.loginForm.password" ng-required="true"/>
+                    <span class="help-block" ng-show="loginForm.password.$dirty && loginForm.password.$error.required">Password is required.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="rememberMe" ng-model="vm.loginForm.rememberMe"/> @Html.DisplayNameFor(m => m.RememberMe)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="button" value="Log in" class="btn btn-default" ng-disabled="loginForm.$invalid" ng-click="vm.login()"/>
+                </div>
+            </div>
+
+            <p>
+                Do not have an account? Go to @Html.ActionLink("Register", "Register", "Account")
+            </p>
+        </form>
+    </div>
+</div>

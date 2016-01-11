@@ -1,0 +1,14 @@
+﻿<div>
+    <h4>Change your account settings</h4>
+    <hr/>
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            @Html.ActionLink("Change your password", "Password", "Manage")
+        </dd>
+        <dt ng-if="vm.user.isAdmin">Users:</dt>
+        <dd ng-if="vm.user.isAdmin">
+            @Html.ActionLink("Change user authorization", "Index", "User")
+        </dd>
+    </dl>
+</div>

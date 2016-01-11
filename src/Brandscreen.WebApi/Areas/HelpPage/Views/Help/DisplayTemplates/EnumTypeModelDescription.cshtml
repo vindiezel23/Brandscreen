@@ -1,0 +1,31 @@
+@using Brandscreen.WebApi.Areas.HelpPage.ModelDescriptions
+@model Brandscreen.WebApi.Areas.HelpPage.ModelDescriptions.EnumTypeModelDescription
+
+<p>Possible enumeration values:</p>
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed">
+        <thead>
+        <tr>
+            <th class="col-md-2">Name</th>
+            <th class="col-md-2">Value</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (EnumValueDescription value in Model.Values)
+        {
+            <tr>
+                <td class="enum-name">
+                    <b>@value.Name</b>
+                </td>
+                <td class="enum-value">
+                    <p>@value.Value</p>
+                </td>
+                <td class="enum-description">
+                    <p>@value.Documentation</p>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

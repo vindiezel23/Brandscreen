@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Brandscreen.WebApi</id>
+    <title>Brandscreen WebApi</title>
+    <version>1.0.0</version>
+    <authors>Jing Wu</authors>
+    <owners>Brandscreen</owners>
+    <licenseUrl>https://www.brandscreen.com/</licenseUrl>
+    <projectUrl>https://www.brandscreen.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Brandscreen WebApi</description>
+  </metadata>
+
+  <files>
+    <file src="robots.txt;favicon.ico" />
+    <file src="*.config" exclude="packages.config;*.*.config" />
+    <file src="App_Data\Brandscreen.WebApi.XML" target="App_Data" />
+    <file src="Areas\**\*" exclude="**\*.cs" target="Areas" />
+    <file src="Views\**\*" target="Views" />
+    <file src="app\Web.config" target="app" />
+    <file src="app\**\templates\*" target="app" />
+    <file src="Scripts\dist\**\*" target="Scripts\dist" />
+    <file src="Content\Images\**\*" target="Content\Images" />
+    <file src="Content\dist\**\*" target="Content\dist" />
+    <file src="bin\**\*" exclude="**\*.config;**\*.xml;**\*\phantomjs*" target="bin" />
+  </files>
+</package>

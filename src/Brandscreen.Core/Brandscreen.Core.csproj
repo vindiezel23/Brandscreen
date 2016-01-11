@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7555A6D2-208C-49B7-B2CF-8763C0492FEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Brandscreen.Core</RootNamespace>
+    <AssemblyName>Brandscreen.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\Production\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AWSSDK.Core.3.1.3.3\lib\net45\AWSSDK.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AWSSDK.S3, Version=3.1.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AWSSDK.S3.3.1.3.4\lib\net45\AWSSDK.S3.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Flurl, Version=1.0.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Flurl.1.0.10\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Flurl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Flurl.Http.0.7.0\lib\net45\Flurl.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="IdentityModel.Net45, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\IdentityModel.1.2.1\lib\net45\IdentityModel.Net45.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageResizer.4.0.4\lib\net45\ImageResizer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.1.3.1, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LinqKit.1.1.3.1\lib\net45\LinqKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.1.0.145, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MongoDB.Bson.2.1.0\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=1.3.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NodaTime.1.3.1\lib\net35-Client\NodaTime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NReco.PhantomJS, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NReco.PhantomJS.1.0.2.0\lib\net40-Client\NReco.PhantomJS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.9.0.729, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Core.2.9.0\lib\net40-Client\NuGet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Repository.Pattern, Version=3.3.5.1, Culture=neutral, PublicKeyToken=e598640c26ef2b0a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Repository.Pattern.3.3.5.1\lib\net451\Repository.Pattern.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Repository.Pattern.Ef6, Version=3.3.5.1, Culture=neutral, PublicKeyToken=e598640c26ef2b0a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Repository.Pattern.Ef6.3.3.5.1\lib\net451\Repository.Pattern.Ef6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Softwarekueche.MimeTypeDetective, Version=0.3.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Softwarekueche.MimeTypeDetective.0.3.0.2\lib\net40-client\Softwarekueche.MimeTypeDetective.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SwfDotNet.IO, Version=0.9.0.27050, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SwfDotNet.IO.1.0.0.1\lib\net40-full\SwfDotNet.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrandscreenException.cs" />
+    <Compile Include="DbAsyncWrapper\DbAsyncExtensions.cs" />
+    <Compile Include="DbAsyncWrapper\DbAsyncEnumerable.cs" />
+    <Compile Include="DbAsyncWrapper\DbAsyncEnumerator.cs" />
+    <Compile Include="DbAsyncWrapper\DbAsyncQueryProvider.cs" />
+    <Compile Include="FileSystems\IAppDataFolderRoot.cs" />
+    <Compile Include="MiniBuss\Messages\CreativeMongoUpdateEvent.cs" />
+    <Compile Include="MiniBuss\Messages\CreativeRejectionReceivedEvent.cs" />
+    <Compile Include="MiniBuss\Messages\GenerateCreativeThumbnailEvent.cs" />
+    <Compile Include="MiniBuss\ServiceBusExtensions.cs" />
+    <Compile Include="Security\ApplicationSignInManager.cs" />
+    <Compile Include="Security\Provides\ApplicationOAuthProvider.cs" />
+    <Compile Include="Security\ApplicationRoleManager.cs" />
+    <Compile Include="Security\JwtTokenFormat.cs" />
+    <Compile Include="Security\OwinContextExtensions.cs" />
+    <Compile Include="Security\Provides\ApplicationRefreshTokenProvider.cs" />
+    <Compile Include="Security\SecurityModule.cs" />
+    <Compile Include="Security\StandardClaimType.cs" />
+    <Compile Include="Services\Accounts\AccountExtensions.cs" />
+    <Compile Include="Services\Accounts\AccountQueryOptions.cs" />
+    <Compile Include="Services\Advertisers\AdvertiserQueryOptions.cs" />
+    <Compile Include="Services\Advertisers\IAdvertiserService.cs" />
+    <Compile Include="Services\Brands\BrandEnums.cs" />
+    <Compile Include="Services\Brands\BrandQueryOptions.cs" />
+    <Compile Include="Services\Brands\IBrandService.cs" />
+    <Compile Include="Services\Campaigns\CampaignEnums.cs" />
+    <Compile Include="Services\Accounts\AccountEnums.cs" />
+    <Compile Include="Services\Campaigns\CampaignQueryOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeAdTagCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeDoohCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeDoohVideoCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeDoohVideoUrlCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeEnums.cs" />
+    <Compile Include="Services\Creatives\CreativeHtml5CreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeQueryOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeReviewModifyOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeSizeQueryOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeSwiffyCreateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeUpdateOptions.cs" />
+    <Compile Include="Services\Creatives\CreativeVastCreateOptions.cs" />
+    <Compile Include="Services\Creatives\Html5\Html5ExtractResult.cs" />
+    <Compile Include="Services\Creatives\Html5\Html5ParseResult.cs" />
+    <Compile Include="Services\Creatives\Html5\IHtml5Parser.cs" />
+    <Compile Include="Services\Creatives\Html5\IHtml5Service.cs" />
+    <Compile Include="Services\Creatives\IAdTagTemplateService.cs" />
+    <Compile Include="Services\Creatives\ICreativeService.cs" />
+    <Compile Include="Services\Creatives\ICreativeSizeService.cs" />
+    <Compile Include="Services\Dooh\IDoohService.cs" />
+    <Compile Include="Services\EnumHelper.cs" />
+    <Compile Include="Services\Memberships\ApplicationUserCreateOptions.cs" />
+    <Compile Include="Services\Memberships\ApplicationUserQueryOptions.cs" />
+    <Compile Include="Services\Memberships\ApplicationUserUpdateOptions.cs" />
+    <Compile Include="Services\Memberships\IMembershipService.cs" />
+    <Compile Include="Services\Partners\PartnerEnums.cs" />
+    <Compile Include="Services\Placements\PlacementModifyOptions.cs" />
+    <Compile Include="Services\Creatives\Swiffy\ISwiffyParser.cs" />
+    <Compile Include="Services\Creatives\Swiffy\SwiffyParseResult.cs" />
+    <Compile Include="Services\Creatives\Vast\IVastParser.cs" />
+    <Compile Include="Services\Creatives\Vast\IVastService.cs" />
+    <Compile Include="Services\Creatives\Vast\VastValidationResult.cs" />
+    <Compile Include="Services\Creatives\Vast\vast_2_0_1.cs" />
+    <Compile Include="Services\DateTimeExtensions.cs" />
+    <Compile Include="Services\Deals\DealEnums.cs" />
+    <Compile Include="Services\Deals\DealQueryOptions.cs" />
+    <Compile Include="Services\Deals\IDealService.cs" />
+    <Compile Include="Services\Placements\IPlacementService.cs" />
+    <Compile Include="Services\Placements\PlacementQueryOptions.cs" />
+    <Compile Include="Services\ScreenCaptures\IScreenCaptureService.cs" />
+    <Compile Include="Services\Publishers\IPublisherService.cs" />
+    <Compile Include="Services\Publishers\PublisherQueryOptions.cs" />
+    <Compile Include="Services\Segments\SegmentEnums.cs" />
+    <Compile Include="Services\Segments\SegmentQueryOptions.cs" />
+    <Compile Include="Services\Strategies\IntervalEnums.cs" />
+    <Compile Include="Services\Strategies\IntervalExtensions.cs" />
+    <Compile Include="Services\Strategies\IStrategyTargetingUpdateService.cs" />
+    <Compile Include="Services\Strategies\MonetaryValueHelper.cs" />
+    <Compile Include="Services\Strategies\StrategyTargetingGeoPostcode.cs" />
+    <Compile Include="Services\Strategies\StrategyTargetingMobileCarrier.cs" />
+    <Compile Include="Services\Strategies\StrategyTargetingUpdateOptions.cs" />
+    <Compile Include="Services\Strategies\StrategyUpdateOptions.cs" />
+    <Compile Include="Services\Strategies\Targets\IDayPartService.cs" />
+    <Compile Include="Services\Strategies\Targets\IDeviceService.cs" />
+    <Compile Include="Services\Strategies\Targets\IMobileCarrierService.cs" />
+    <Compile Include="Services\Strategies\Targets\IPagePositionService.cs" />
+    <Compile Include="Services\Partners\IPartnerService.cs" />
+    <Compile Include="Services\Segments\ISegmentService.cs" />
+    <Compile Include="Services\Strategies\Targets\IVerticalService.cs" />
+    <Compile Include="Services\Strategies\Targets\DomainListEnums.cs" />
+    <Compile Include="Services\IAmazonService.cs" />
+    <Compile Include="Services\IAuthorizationService.cs" />
+    <Compile Include="Services\ICountryService.cs" />
+    <Compile Include="Services\ICurrencyService.cs" />
+    <Compile Include="Services\IdentityValue.cs" />
+    <Compile Include="Services\Strategies\Targets\IDomainListService.cs" />
+    <Compile Include="Services\IIndustryCategoryService.cs" />
+    <Compile Include="Services\ILanguageService.cs" />
+    <Compile Include="Services\IProductCategoryService.cs" />
+    <Compile Include="Services\ITimeZoneService.cs" />
+    <Compile Include="Services\QueryOptions.cs" />
+    <Compile Include="Services\Strategies\Targets\IGeoLocationService.cs" />
+    <Compile Include="Services\Strategies\IStrategyTargetingService.cs" />
+    <Compile Include="Services\Strategies\StrategiesEnums.cs" />
+    <Compile Include="Services\Strategies\IStrategyService.cs" />
+    <Compile Include="Services\Strategies\StrategyQueryOptions.cs" />
+    <Compile Include="Services\Strategies\Targets\VerticalQueryOptions.cs" />
+    <Compile Include="Services\TransactionWrapper.cs" />
+    <Compile Include="Services\UrlHelper.cs" />
+    <Compile Include="Security\StandardPermission.cs" />
+    <Compile Include="Security\StandardRole.cs" />
+    <Compile Include="Interceptors\InterceptorModule.cs" />
+    <Compile Include="Interceptors\ProfilingInterceptor.cs" />
+    <Compile Include="MiniBuss\IMessage.cs" />
+    <Compile Include="MiniBuss\Messages\CrudMessage.cs" />
+    <Compile Include="MiniBuss\Messages\UserMessage.cs" />
+    <Compile Include="MiniBuss\ServiceBus.cs" />
+    <Compile Include="MiniBuss\ServiceBusModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\ApplicationUserManager.cs" />
+    <Compile Include="Security\ApplicationUser.cs" />
+    <Compile Include="Security\SqlPasswordHasher.cs" />
+    <Compile Include="Services\Accounts\IAccountService.cs" />
+    <Compile Include="Services\Campaigns\ICampaignService.cs" />
+    <Compile Include="Services\Users\IUserService.cs" />
+    <Compile Include="Services\Users\RandomPassword.cs" />
+    <Compile Include="Services\Reports\IReport.cs" />
+    <Compile Include="Services\Reports\PerformanceData.cs" />
+    <Compile Include="Services\Reports\IReportService.cs" />
+    <Compile Include="Services\Reports\ReportCriteria.cs" />
+    <Compile Include="Services\Reports\ReportExtensions.cs" />
+    <Compile Include="Services\Reports\ReportEnums.cs" />
+    <Compile Include="Services\Users\UserEnums.cs" />
+    <Compile Include="Services\Users\UserQueryOptions.cs" />
+    <Compile Include="Settings\IAmazonSettings.cs" />
+    <Compile Include="Settings\ISecuritySettings.cs" />
+    <Compile Include="Settings\ISiteSettings.cs" />
+    <Compile Include="Settings\ICreativeSettings.cs" />
+    <Compile Include="Settings\IStrategySettings.cs" />
+    <Compile Include="Tokens\DescribeContext.cs" />
+    <Compile Include="Tokens\DescribeFor.cs" />
+    <Compile Include="Tokens\EvaluateContext.cs" />
+    <Compile Include="Tokens\EvaluateFor.cs" />
+    <Compile Include="Tokens\Implementation\Tokenizer.cs" />
+    <Compile Include="Tokens\Implementation\TokenManager.cs" />
+    <Compile Include="Tokens\ITokenizer.cs" />
+    <Compile Include="Tokens\ITokenManager.cs" />
+    <Compile Include="Tokens\ITokenProvider.cs" />
+    <Compile Include="Tokens\Providers\TextTokens.cs" />
+    <Compile Include="Tokens\ReplaceOptions.cs" />
+    <Compile Include="Tokens\TokenDescriptor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="Services\Creatives\Vast\vast_2.0.1.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Brandscreen.Analytics.Entities\Brandscreen.Analytics.Entities.csproj">
+      <Project>{800ed4b6-56e4-411d-aff4-c90dba99ec29}</Project>
+      <Name>Brandscreen.Analytics.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brandscreen.Entities\Brandscreen.Entities.csproj">
+      <Project>{46d8900d-adcc-4dad-b7a6-de220aaaccdc}</Project>
+      <Name>Brandscreen.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Brandscreen.Framework\Brandscreen.Framework.csproj">
+      <Project>{497d6f8f-4b3a-4305-8f77-2e9bbf7e044e}</Project>
+      <Name>Brandscreen.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\packages\PhantomJS.2.0.0\tools\phantomjs\phantomjs.exe">
+      <Link>phantomjs.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="phantomjs-license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
