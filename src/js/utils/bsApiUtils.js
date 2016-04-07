@@ -1,5 +1,5 @@
 var $ = require('jquery');
-var LoginActionCreators = require('../actions/LoginActionCreators');
+var CampaignListActionCreators = require('../actions/CampaignListActionCreators');
 var LoginStore = require('../stores/LoginStore');
 var BSAPIConstants = require('../constants/BSAPIConstants');
 
@@ -10,7 +10,7 @@ module.exports = {
             url: BSAPIConstants.url + 'api/campaigns?UserId=',
             headers: {'Authorization': 'Bearer ' + LoginStore.getAccessToken()}
         }).done(function(response) {
-            console.log('got!', response);
+            CampaignListActionCreators.receive(response);
         }).fail(function(error) {
             console.log('get campaigns failed', error);
         });

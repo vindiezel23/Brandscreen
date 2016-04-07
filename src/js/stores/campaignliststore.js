@@ -9,25 +9,6 @@ var CHANGE_EVENT = 'change';
 
 var _campaigns = [];
 
-function _addMessages(rawMessages) {
-    rawMessages.forEach(function(message) {
-        if (!_messages[message.id]) {
-            _messages[message.id] = ChatMessageUtils.convertRawMessage(
-                message,
-                ThreadStore.getCurrentID()
-            );
-        }
-    });
-}
-
-function _markAllInThreadRead(threadID) {
-    for (var id in _messages) {
-        if (_messages[id].threadID === threadID) {
-            _messages[id].isRead = true;
-        }
-    }
-}
-
 var CampaignListStore = assign({}, EventEmitter.prototype, {
 
     emitChange: function() {
@@ -54,6 +35,11 @@ CampaignListStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
 
         case ActionTypes.LOGIN_SUCCESS:
             BSAPIUtils.getCampaigns();
+            break;
+
+        case ActionTypes.RECEIVE_CAMPAIGN_LIST:
+            _campaigns = action.response.Data;
+            CampaignListStore.emitChange();
             break;
 
         default:
