@@ -37,6 +37,11 @@ CampaignListStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
             BSAPIUtils.getCampaigns();
             break;
 
+        case ActionTypes.LOGIN_FAILURE:
+            _campaigns = [];
+            CampaignListStore.emitChange();
+            break;
+
         case ActionTypes.RECEIVE_CAMPAIGN_LIST:
             _campaigns = action.response.Data;
             CampaignListStore.emitChange();
