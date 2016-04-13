@@ -7,7 +7,7 @@ var assign = require('object-assign');
 var ActionTypes = BSAPIConstants.ActionTypes;
 var LOGIN_EVENT = 'login';
 
-var _accessToken = null;
+var _accessToken = '';
 
 var LoginStore = assign({}, EventEmitter.prototype, {
 
@@ -42,6 +42,11 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
 
         case ActionTypes.LOGIN_SUCCESS:
             _accessToken = action.response.access_token;
+            LoginStore.emitLogin();
+            break;
+
+        case ActionTypes.LOGIN_FAILURE:
+            _accessToken = '';
             LoginStore.emitLogin();
             break;
 
