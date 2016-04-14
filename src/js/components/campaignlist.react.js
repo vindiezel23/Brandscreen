@@ -1,11 +1,12 @@
 var CampaignListStore = require('../stores/CampaignListStore');
 var LoginActionCreators = require('../actions/LoginActionCreators');
 var CampaignListItem = require('../components/CampaignListItem.react');
+var Pagination = require('../components/Pagination.react');
 var React = require('react');
 
 function getStateFromStores() {
     return {
-        campaigns: CampaignListStore.get()
+        campaigns: CampaignListStore.items()
     };
 }
 
@@ -43,7 +44,7 @@ var CampaignList = React.createClass({
                     {campaignItems}
                     </tbody>
                   </table>
-                  // TODO: pagination
+                  <Pagination store={CampaignListStore} />
                 </div>
             );
         }
