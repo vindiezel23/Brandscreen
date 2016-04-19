@@ -7,7 +7,7 @@ var assign = require('object-assign');
 var ActionTypes = BSAPIConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
 
-var _campaigns = [];
+var _data = null;
 
 var CampaignListStore = assign({}, EventEmitter.prototype, {
 
@@ -23,8 +23,26 @@ var CampaignListStore = assign({}, EventEmitter.prototype, {
         this.removeListener(CHANGE_EVENT, callback);
     },
 
-    get: function() {
-        return _campaigns;
+    items: function() {
+        if (_data === null) {
+            return [];
+        }
+        return _data.Data;
+    },
+    _get: function(key) {
+        if (_data === null) {
+            return null;
+        }
+        return _data[key];
+    },
+    pageSize: function() {
+        return this._get('PageSize');
+    },
+    pageCount: function() {
+        return this._get('PageCount');
+    },
+    pageNumber: function() {
+        return this._get('PageNumber');
     }
 
 });
@@ -38,12 +56,12 @@ CampaignListStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
             break;
 
         case ActionTypes.LOGIN_FAILURE:
-            _campaigns = [];
+            _data = null;
             CampaignListStore.emitChange();
             break;
 
         case ActionTypes.RECEIVE_CAMPAIGN_LIST:
-            _campaigns = action.response.Data;
+            _data = action.response;
             CampaignListStore.emitChange();
             break;
 
