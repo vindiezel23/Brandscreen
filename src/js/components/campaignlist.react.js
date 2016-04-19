@@ -1,12 +1,13 @@
-var CampaignListStore = require('../stores/CampaignListStore');
+var _store = require('../stores/CampaignListStore');
 var LoginActionCreators = require('../actions/LoginActionCreators');
 var CampaignListItem = require('../components/CampaignListItem.react');
 var Pagination = require('../components/Pagination.react');
+var BSAPIUtils = require('../utils/BSAPIUtils');
 var React = require('react');
 
 function getStateFromStores() {
     return {
-        campaigns: CampaignListStore.items()
+        campaigns: _store.items()
     };
 }
 
@@ -23,11 +24,11 @@ var CampaignList = React.createClass({
     },
 
     componentDidMount: function() {
-        CampaignListStore.addChangeListener(this._onChange);
+        _store.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
-        CampaignListStore.removeChangeListener(this._onChange);
+        _store.removeChangeListener(this._onChange);
     },
 
     render: function() {
@@ -44,7 +45,7 @@ var CampaignList = React.createClass({
                     {campaignItems}
                     </tbody>
                   </table>
-                  <Pagination store={CampaignListStore} />
+                  <Pagination store={_store} getFunc={BSAPIUtils.getCampaigns} />
                 </div>
             );
         }
