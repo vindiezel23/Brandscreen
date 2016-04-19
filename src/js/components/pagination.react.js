@@ -15,7 +15,8 @@ function getStateFromStores(store) {
 var Pagination = React.createClass({
 
     propTypes: {
-        store: ReactPropTypes.object
+        store: ReactPropTypes.object.isRequired,
+        getFunc: React.PropTypes.func.isRequired
     },
 
     getInitialState: function() {
@@ -70,8 +71,8 @@ var Pagination = React.createClass({
     _onClick: function(pageNumber, event) {
         event.preventDefault();
         if (pageNumber >= 1 && pageNumber <= this.state.pageCount) {
-            console.log('switching to page', pageNumber, this.state.pageCount);
             this.setState({pageNumber: pageNumber});
+            this.props.getFunc(pageNumber);
         }
     }
 
