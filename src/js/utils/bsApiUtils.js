@@ -5,9 +5,11 @@ var BSAPIConstants = require('../constants/BSAPIConstants');
 
 module.exports = {
 
-    getCampaigns: function() {
+    getCampaigns: function(pageNumber) {
+        var url = BSAPIConstants.url + 'api/campaigns?PageNumber=' + pageNumber +
+            '&UserId=';
         $.ajax({
-            url: BSAPIConstants.url + 'api/campaigns?UserId=',
+            url: url,
             headers: {'Authorization': 'Bearer ' + LoginStore.getAccessToken()}
         }).done(function(response) {
             CampaignListActionCreators.receive(response);
