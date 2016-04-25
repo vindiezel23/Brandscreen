@@ -24,6 +24,12 @@ module.exports = {
         BSAPIAppDispatcher.dispatch({
             type: ActionTypes.LOGIN_FAILURE
         });
+    },
+
+    expired: function() {
+        BSAPIAppDispatcher.dispatch({
+            type: ActionTypes.LOGIN_EXPIRED
+        });
     }
 
 };

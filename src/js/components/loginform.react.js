@@ -10,10 +10,12 @@ var LoginForm = React.createClass({
 
     componentDidMount: function() {
         LoginStore.addLoginListener(this._onLogin);
+        LoginStore.addExpiredListener(this._onExpired);
     },
 
     componentWillUnmount: function() {
         LoginStore.removeLoginListener(this._onLogin);
+        LoginStore.removeExpiredListener(this._onExpired);
     },
 
     render: function() {
@@ -86,6 +88,10 @@ var LoginForm = React.createClass({
     },
     _onLogin: function() {
         this.setState({accessToken: LoginStore.getAccessToken(), loggingIn: false});
+    },
+    _onExpired: function() {
+        // If login has expired, attempt to log in again
+        this._onChange(null);
     }
 });
 
