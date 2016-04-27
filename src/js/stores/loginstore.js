@@ -6,6 +6,7 @@ var assign = require('object-assign');
 
 var ActionTypes = BSAPIConstants.ActionTypes;
 var LOGIN_EVENT = 'login';
+var EXPIRED_EVENT = 'expired';
 
 var _accessToken = '';
 
@@ -14,13 +15,21 @@ var LoginStore = assign({}, EventEmitter.prototype, {
     emitLogin: function() {
         this.emit(LOGIN_EVENT);
     },
-
     addLoginListener: function(callback) {
         this.on(LOGIN_EVENT, callback);
     },
-
     removeLoginListener: function(callback) {
         this.removeListener(LOGIN_EVENT, callback);
+    },
+
+    emitExpired: function() {
+        this.emit(EXPIRED_EVENT);
+    },
+    addExpiredListener: function(callback) {
+        this.on(EXPIRED_EVENT, callback);
+    },
+    removeExpiredListener: function(callback) {
+        this.removeListener(EXPIRED_EVENT, callback);
     },
 
     getAccessToken: function() {
@@ -48,6 +57,11 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
         case ActionTypes.LOGIN_FAILURE:
             _accessToken = '';
             LoginStore.emitLogin();
+            break;
+
+        case ActionTypes.LOGIN_EXPIRED:
+            _accessToken = '';
+            LoginStore.emitExpired();
             break;
 
         default:

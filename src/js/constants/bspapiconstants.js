@@ -8,6 +8,7 @@ module.exports = {
         LOGIN: null,
         LOGIN_SUCCESS: null,
         LOGIN_FAILURE: null,
+        LOGIN_EXPIRED: null,
         RECEIVE_CAMPAIGN_LIST: null
     })
 
