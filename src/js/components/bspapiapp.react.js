@@ -1,7 +1,5 @@
 var React = require('react');
-var Navbar = require('./Navbar.react')
-var LoginForm = require('./LoginForm.react')
-var CampaignList = require('./CampaignList.react')
+var Navbar = require('./Navbar.react');
 
 var BSAPIApp = React.createClass({
 
@@ -11,10 +9,7 @@ var BSAPIApp = React.createClass({
                 <Navbar />
                 <div className="container">
                     <div className="row">
-                        <div className="bsapiapp">
-                            <LoginForm />
-                            <CampaignList />
-                        </div>
+                        {this.props.children}
                     </div>
                 </div>
             </div>
