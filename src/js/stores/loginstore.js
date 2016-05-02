@@ -9,6 +9,7 @@ var LOGIN_EVENT = 'login';
 var EXPIRED_EVENT = 'expired';
 
 var _accessToken = '';
+var _username = '';
 
 var LoginStore = assign({}, EventEmitter.prototype, {
 
@@ -37,6 +38,9 @@ var LoginStore = assign({}, EventEmitter.prototype, {
             return '';
         }
         return _accessToken;
+    },
+    getUsername: function() {
+        return _username;
     }
 
 });
@@ -46,6 +50,7 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
     switch(action.type) {
 
         case ActionTypes.LOGIN:
+            _username = action.username;
             BSAPIAuthUtils.authenticate(action.username, action.password);
             break;
 
@@ -55,6 +60,7 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
             break;
 
         case ActionTypes.LOGIN_FAILURE:
+            _username = action.username;
             _accessToken = '';
             LoginStore.emitLogin();
             break;
