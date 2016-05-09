@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var ReactPropTypes = React.PropTypes;
 
@@ -13,7 +14,9 @@ var CampaignListItem = React.createClass({
         return (
             <tr>
                 <td>
-                    <a href="foobar">{campaign.CampaignName}</a>
+                    <Link to={`/campaign/${campaign.CampaignUuid}`}>
+                        {campaign.CampaignName}
+                    </Link>
                 </td>
             </tr>
         );
