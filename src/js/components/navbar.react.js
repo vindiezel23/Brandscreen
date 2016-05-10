@@ -1,6 +1,7 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var LoginStore = require('../stores/LoginStore');
+var CampaignStore = require('../stores/CampaignStore');
 
 var Navbar = React.createClass({
 
@@ -25,6 +26,15 @@ var Navbar = React.createClass({
             loginText = 'Logged in as ' + this.state.username;
             loginLinkClass = '';
         }
+        var campaignLink = (<a href="#">Campaign</a>);
+        var currentCampaign = CampaignStore.current();
+        if (currentCampaign !== null) {
+            campaignLink = (
+                <Link to={`/campaign/${currentCampaign.CampaignUuid}`}>
+                    Campaign: {currentCampaign.CampaignName}
+                </Link>
+            );
+        }
         return (
             <nav className="navbar navbar-default navbar-static-top">
                 <div className="container">
@@ -38,6 +48,7 @@ var Navbar = React.createClass({
                             {/* TODO: dynamic active class */}
                             {/* TODO: react router links */}
                             <li className="active"><Link to="/">Home</Link></li>
+                            <li className="active">{campaignLink}</li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
                             <li className={loginLinkClass}>
