@@ -9,7 +9,8 @@ module.exports = {
         LOGIN_SUCCESS: null,
         LOGIN_FAILURE: null,
         LOGIN_EXPIRED: null,
-        RECEIVE_CAMPAIGN_LIST: null
+        RECEIVE_CAMPAIGN_LIST: null,
+        RECEIVE_CAMPAIGN: null
     })
 
 };
