@@ -21,16 +21,15 @@ var Navbar = React.createClass({
 
     render: function() {
         var loginText = 'Login';
-        var loginLinkClass = 'active';
         if (this.state.username != '') {
             loginText = 'Logged in as ' + this.state.username;
-            loginLinkClass = '';
         }
         var campaignLink = (<a href="#">Campaign</a>);
         var currentCampaign = CampaignStore.current();
         if (currentCampaign !== null) {
             campaignLink = (
-                <Link to={`/campaign/${currentCampaign.CampaignUuid}`}>
+                <Link activeClassName="active"
+                      to={`/campaign/${currentCampaign.CampaignUuid}`}>
                     Campaign: {currentCampaign.CampaignName}
                 </Link>
             );
@@ -47,12 +46,14 @@ var Navbar = React.createClass({
                         <ul className="nav navbar-nav">
                             {/* TODO: dynamic active class */}
                             {/* TODO: react router links */}
-                            <li className="active"><Link to="/">Home</Link></li>
-                            <li className="active">{campaignLink}</li>
+                            <li>
+                                <Link activeClassName="active" to="/campaign">Campaigns</Link>
+                            </li>
+                            <li>{campaignLink}</li>
                         </ul>
                         <ul className="nav navbar-nav navbar-right">
-                            <li className={loginLinkClass}>
-                                <Link to='/login'>{loginText}</Link>
+                            <li>
+                                <Link activeClassName="active" to='/login'>{loginText}</Link>
                             </li>
                         </ul>
                     </div>

@@ -14,7 +14,10 @@ ReactDOM.render((
         <ReactRouter.Route path="/" component={BSAPIApp}>
             <ReactRouter.IndexRoute component={CampaignList} />
             <ReactRouter.Route path="login" component={LoginForm} />
-            <ReactRouter.Route path="campaign/:id" component={Campaign} />
+            <ReactRouter.Route path="campaign">
+                <ReactRouter.IndexRoute component={CampaignList} />
+                <ReactRouter.Route path=":id" component={Campaign} />
+            </ReactRouter.Route>
         </ReactRouter.Route>
     </ReactRouter.Router>
 ), document.getElementById('react'));

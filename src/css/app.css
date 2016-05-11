@@ -1,6 +1,7 @@
 .green-tick {
     color: green;
 }
+
 .glyphicon-spin {
     -webkit-animation: spin 1000ms infinite linear;
     animation: spin 1000ms infinite linear;
@@ -24,4 +25,10 @@
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
+}
+
+.navbar-default
+.navbar-nav>li>a.active {
+    color: #555;
+    background-color: #e7e7e7;
 }
