@@ -32,3 +32,6 @@
     color: #555;
     background-color: #e7e7e7;
 }
+.breadcrumb>li>a.active {
+    color: #777;
+}
