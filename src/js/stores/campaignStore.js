@@ -54,7 +54,7 @@ CampaignStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
             break;
 
         case ActionTypes.LOGIN_FAILURE:
-            _campaigns = null;
+            _campaigns = {};
             CampaignStore.emitChange();
             break;
 
