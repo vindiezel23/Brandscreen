@@ -1,6 +1,7 @@
 var LoginStore = require('../stores/LoginStore');
 var LoginActionCreators = require('../actions/LoginActionCreators');
 var React = require('react');
+var Spinner = require('./Spinner.react');
 
 var LoginForm = React.createClass({
 
@@ -22,11 +23,7 @@ var LoginForm = React.createClass({
         var tick;
         if (this.state.loggingIn) {
             // Show spinner if login attempt is happening
-            tick = (
-                <span className="glyphicon glyphicon-refresh glyphicon-spin"
-                      aria-hidden="true">
-        </span>
-            )
+            tick = (<Spinner />);
         } else if (this.state.accessToken !== '') {
             // Otherwise, if we've logged in already, show a green tick
             tick = (
@@ -36,31 +33,31 @@ var LoginForm = React.createClass({
         }
         return (
             <div className="well">
-              <form>
-                <div className="form-inline">
-                  <div className="form-group">
-                    <label htmlFor="id-username">Username</label>
-                    <input type="text" className="form-control" id="id-username"
-                           name="username" placeholder="name@brandscreen.com" required
-                           value={this.state.username} onChange={this._usernameOnChange} />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="id-password">Password</label>
-                    <input type="password" className="form-control" id="id-password"
-                           name="password" placeholder="password" required
-                           value={this.state.password} onChange={this._passwordOnChange} />
-                  </div>
-                    {tick}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="access-token">Access Token
-                      {tick}
-                  </label>
-                  <textarea id="access-token" name="accessTokenField" rows="6"
-                            className="form-control validate" placeholder="Access Token"
-                            value={this.state.accessToken}></textarea>
-                </div>
-              </form>
+                <form>
+                    <div className="form-inline">
+                        <div className="form-group">
+                            <label htmlFor="id-username">Username</label>
+                            <input type="text" className="form-control" id="id-username"
+                                   name="username" placeholder="name@brandscreen.com" required
+                                   value={this.state.username} onChange={this._usernameOnChange} />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="id-password">Password</label>
+                            <input type="password" className="form-control" id="id-password"
+                                   name="password" placeholder="password" required
+                                   value={this.state.password} onChange={this._passwordOnChange} />
+                        </div>
+                        {tick}
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="access-token">Access Token
+                            {tick}
+                        </label>
+                        <textarea id="access-token" name="accessTokenField" rows="6"
+                                  className="form-control validate" placeholder="Access Token"
+                                  value={this.state.accessToken}></textarea>
+                    </div>
+                </form>
             </div>
         );
     },
