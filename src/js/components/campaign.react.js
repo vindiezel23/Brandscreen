@@ -1,11 +1,18 @@
-var _store = require('../stores/CampaignStore');
+var CampaignStore = require('../stores/CampaignStore');
+var BrandStore = require('../stores/BrandStore');
+var AccountStore = require('../stores/AccountStore');
 var React = require('react');
 var LoginStore = require('../stores/LoginStore');
+var Spinner = require('./Spinner.react');
 
 function getStateFromStores(id) {
-    return {
-        campaign: _store.get(id)
-    };
+    var state = {campaign: CampaignStore.get(id)};
+    if (state.campaign !== null) {
+        //strategies
+        state.brand = BrandStore.get(state.campaign.BrandUuid);
+        state.account = AccountStore.get(state.campaign.BuyerAccountUuid);
+    }
+    return state;
 }
 
 var Campaign = React.createClass({
@@ -15,11 +22,15 @@ var Campaign = React.createClass({
     },
 
     componentDidMount: function() {
-        _store.addChangeListener(this._onChange);
+        CampaignStore.addChangeListener(this._onChange);
+        BrandStore.addChangeListener(this._onChange);
+        AccountStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
-        _store.removeChangeListener(this._onChange);
+        CampaignStore.removeChangeListener(this._onChange);
+        BrandStore.removeChangeListener(this._onChange);
+        AccountStore.removeChangeListener(this._onChange);
     },
 
     render: function() {
@@ -48,6 +59,14 @@ var Campaign = React.createClass({
          </uib-pagination>
          </div>
          */
+        var brandName = (<Spinner />);
+        if (this.state.brand !== null) {
+            brandName = this.state.brand.BrandName;
+        }
+        var currencyCode = (<Spinner />);
+        if (this.state.account !== null) {
+            currencyCode = this.state.account.CurrencyCode;
+        }
         return (
             <div>
                 <h2>{this.state.campaign.CampaignName}</h2>
@@ -61,10 +80,10 @@ var Campaign = React.createClass({
                         name: 'Margin', label: 'Margin', type: 'number',
                         min: 0, max: 1, step: 0.01
                     })}
-                    {this._staticField({label: 'Brand', value: 'TODO brand.BrandName'})}
+                    {this._staticField({label: 'Brand', value: brandName})}
                     {this._inputField({
                         name: 'BudgetAmount', label: 'Budget', type: 'number', min: 0,
-                        fieldAddon: 'TODO account.CurrencyCode'
+                        fieldAddon: currencyCode
                     })}
                 </form>
             </div>
