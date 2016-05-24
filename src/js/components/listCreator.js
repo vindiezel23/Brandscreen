@@ -49,7 +49,7 @@ module.exports = {
                         var headers = options.headers.map(function(header) {
                             return (<th>{header}</th>);
                         });
-                        thead = (<thead>{headers}</thead>);
+                        thead = (<thead><tr>{headers}</tr></thead>);
                     }
                     tableElement = (
                         <div>
