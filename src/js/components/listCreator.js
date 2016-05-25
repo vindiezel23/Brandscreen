@@ -46,9 +46,10 @@ module.exports = {
                     var items = this.state.items.map(this._getItem);
                     var thead;
                     if ('headers' in options) {
-                        var headers = options.headers.map(function(header) {
-                            return (<th>{header}</th>);
-                        });
+                        var headers = [];
+                        for (var i = 0; i < options.headers.length; i++) {
+                            headers.push((<th key={i}>{options.headers[i]}</th>));
+                        }
                         thead = (<thead><tr>{headers}</tr></thead>);
                     }
                     tableElement = (

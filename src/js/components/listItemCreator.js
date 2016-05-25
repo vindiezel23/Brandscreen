@@ -21,7 +21,7 @@ module.exports = {
                 for (var i = 0; i < options.columns.length; i++) {
                     if (i === 0) {
                         columns.push((
-                            <td>
+                            <td key={i}>
                                 <Link to={`/${options.path}/${this.props.value[options.modelId]}`}>
                                     {this.props.value[options.columns[i]]}
                                 </Link>
@@ -29,7 +29,7 @@ module.exports = {
                         ));
                     } else {
                         columns.push((
-                            <td>{this.props.value[options.columns[i]]}</td>
+                            <td key={i}>{this.props.value[options.columns[i]]}</td>
                         ));
                     }
                 }
