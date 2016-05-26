@@ -2,14 +2,16 @@ var BSAPIAppDispatcher = require('../dispatcher/BSAPIAppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var BSAPIConstants = require('../constants/BSAPIConstants');
 var BSAPIAuthUtils = require('../utils/BSAPIAuthUtils');
+var LoginActionCreators = require('../actions/LoginActionCreators');
 var assign = require('object-assign');
 
 var ActionTypes = BSAPIConstants.ActionTypes;
 var LOGIN_EVENT = 'login';
 var EXPIRED_EVENT = 'expired';
 
-var _accessToken = '';
-var _username = '';
+// Cache username and access token in localstorage
+var _accessToken = localStorage.getItem('bsapi_react.accessToken') || '';
+var _username = localStorage.getItem('bsapi_react.username') || '';
 
 var LoginStore = assign({}, EventEmitter.prototype, {
 
@@ -51,22 +53,27 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
 
         case ActionTypes.LOGIN:
             _username = action.username;
+            localStorage.setItem('bsapi_react.username', _username);
             BSAPIAuthUtils.authenticate(action.username, action.password);
             break;
 
         case ActionTypes.LOGIN_SUCCESS:
-            _accessToken = action.response.access_token;
+            _accessToken = action.accessToken;
+            localStorage.setItem('bsapi_react.accessToken', _accessToken);
             LoginStore.emitLogin();
             break;
 
         case ActionTypes.LOGIN_FAILURE:
             _username = action.username;
+            localStorage.setItem('bsapi_react.username', _username);
             _accessToken = '';
+            localStorage.setItem('bsapi_react.accessToken', _accessToken);
             LoginStore.emitLogin();
             break;
 
         case ActionTypes.LOGIN_EXPIRED:
             _accessToken = '';
+            localStorage.setItem('bsapi_react.accessToken', _accessToken);
             LoginStore.emitExpired();
             break;
 
@@ -77,3 +84,10 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
 });
 
 module.exports = LoginStore;
+
+// If we have a cached access token, fake a logged in event
+if (_accessToken !== '') {
+    setTimeout(function() {
+        LoginActionCreators.success(_accessToken);
+    }, 1000);
+}

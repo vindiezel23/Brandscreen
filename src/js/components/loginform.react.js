@@ -6,7 +6,12 @@ var Spinner = require('./Spinner.react');
 var LoginForm = React.createClass({
 
     getInitialState: function() {
-        return {username: '', password: '', accessToken: '', loggingIn: false};
+        return {
+            username: LoginStore.getUsername(),
+            password: '',
+            accessToken: LoginStore.getAccessToken(),
+            loggingIn: false
+        };
     },
 
     componentDidMount: function() {

@@ -13,10 +13,10 @@ module.exports = {
         });
     },
 
-    success: function(response) {
+    success: function(accessToken) {
         BSAPIAppDispatcher.dispatch({
             type: ActionTypes.LOGIN_SUCCESS,
-            response: response
+            accessToken: accessToken
         });
     },
 

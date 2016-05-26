@@ -12,9 +12,10 @@ module.exports = {
             password: password,
             client_id: 'brandscreen'
         }).done(function(response) {
-            LoginActionCreators.success(response);
+            LoginActionCreators.success(response.access_token);
         }).fail(function(error) {
             console.log('login failed', error);
+            LoginActionCreators.failure();
         });
     }
 
