@@ -1,7 +1,16 @@
 var React = require('react');
 var Navbar = require('./Navbar.react');
+var LoginActionCreators = require('../actions/LoginActionCreators');
+var LoginStore = require('../stores/LoginStore');
 
 var BSAPIApp = React.createClass({
+
+    componentDidMount: function() {
+        // If we have a cached access token, fake a logged in event
+        if (LoginStore.getAccessToken() !== '') {
+            LoginActionCreators.success(LoginStore.getAccessToken());
+        }
+    },
 
     render: function() {
         return (

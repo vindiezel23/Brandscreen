@@ -2,7 +2,6 @@ var BSAPIAppDispatcher = require('../dispatcher/BSAPIAppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var BSAPIConstants = require('../constants/BSAPIConstants');
 var BSAPIAuthUtils = require('../utils/BSAPIAuthUtils');
-var LoginActionCreators = require('../actions/LoginActionCreators');
 var assign = require('object-assign');
 
 var ActionTypes = BSAPIConstants.ActionTypes;
@@ -84,10 +83,3 @@ LoginStore.dispatchToken = BSAPIAppDispatcher.register(function(action) {
 });
 
 module.exports = LoginStore;
-
-// If we have a cached access token, fake a logged in event
-if (_accessToken !== '') {
-    setTimeout(function() {
-        LoginActionCreators.success(_accessToken);
-    }, 1000);
-}
