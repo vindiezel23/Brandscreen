@@ -3,12 +3,13 @@ var BrandStore = require('../stores/BrandStore');
 var AccountStore = require('../stores/AccountStore');
 var React = require('react');
 var LoginStore = require('../stores/LoginStore');
+var StrategyList = require('./StrategyList.react');
 var Spinner = require('./Spinner.react');
+var BSAPIUtils = require('../utils/BSAPIUtils');
 
 function getStateFromStores(id) {
     var state = {campaign: CampaignStore.get(id)};
     if (state.campaign !== null) {
-        //strategies
         state.brand = BrandStore.get(state.campaign.BrandUuid);
         state.account = AccountStore.get(state.campaign.BuyerAccountUuid);
     }
@@ -37,28 +38,6 @@ var Campaign = React.createClass({
         if (this.state.campaign === null) {
             return null;
         }
-        var strategies = 'TODO strategies';
-        /*
-         <p ng-show="strategies.length === 0">No Strategies</p>
-         <div ng-show="strategies.length > 0">
-         <h3>Strategies for Campaign</h3>
-         <table class="table table-striped">
-         <tbody>
-         <tr ng-repeat="strategy in strategies">
-         <td>
-         <a href="/c/{{campaign.CampaignUuid}}/s/{{strategy.StrategyUuid}}">
-         {{strategy.StrategyName}}
-         </a>
-         </td>
-         </tr>
-         </tbody>
-         </table>
-         <uib-pagination total-items="campaignCtrl.totalItems"
-         ng-model="currentPage" max-size="5" class="pagination-sm"
-         boundary-links="true" rotate="false">
-         </uib-pagination>
-         </div>
-         */
         var brandName = (<Spinner />);
         if (this.state.brand !== null) {
             brandName = this.state.brand.BrandName;
@@ -70,7 +49,8 @@ var Campaign = React.createClass({
         return (
             <div>
                 <h2>{this.state.campaign.CampaignName}</h2>
-                {strategies}
+                <h3>Strategies</h3>
+                <StrategyList params={{CampaignUuid: this.props.params.id}} />
                 <h3>Campaign Details</h3>
                 <form name="campaignForm" className="form-horizontal" role="form">
                     {/* TODO: functional form */}
@@ -123,14 +103,15 @@ var Campaign = React.createClass({
         return (
             <div className="form-group">
                 <div className="col-md-3 text-right">
-                    <label htmlFor="id-{options.name}" className="control-label">
+                    <label htmlFor={`id-${options.name}`} className="control-label">
                         {options.label}
                     </label>
                 </div>
                 <div className="col-md-9">
                     <div className={fieldAddonClass}>
                         {fieldAddon}
-                        <input id="id-{options.name}" value={value}
+                        <input id={`id-${options.name}`} name={options.name} value={value}
+                               onChange={this._onFieldChange}
                                className="form-control validate" type={options.type}
                                min={min} max={max} step={step} />
                     </div>
@@ -165,6 +146,17 @@ var Campaign = React.createClass({
 
     _onChange: function() {
         this.setState(getStateFromStores(this.props.params.id));
+    },
+    _onFieldChange: function(event) {
+        // Update our own state
+        var campaign = this.state.campaign;
+        campaign[event.target.name] = event.target.value;
+        this.setState({campaign: campaign});
+        // Update the API
+        var data = {};
+        data[event.target.name] = event.target.value;
+        BSAPIUtils.patchCampaign(this.props.params.id, data);
+        console.log(event, event.target.name, event.target.value);
     }
 
 });
