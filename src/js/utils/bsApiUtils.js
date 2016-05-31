@@ -25,8 +25,8 @@ module.exports = {
         path: 'accounts', actionType: ActionTypes.RECEIVE_ACCOUNT
     }),
 
-    patchCampaign: function(id, data) {
-        patch('campaigns', id, data, 'foobar');
+    patchCampaign: function(id, name, value) {
+        patch('campaigns', id, name, value, ActionTypes.PATCH_CAMPAIGN);
     }
 
 };
@@ -70,12 +70,10 @@ function get(url, params, actionType) {
     });
 }
 
-function patch(path, id, data, actionType) {
+function patch(path, id, name, value, actionType) {
     var url = BSAPIConstants.url + 'api/' + path + '/' + id;
     var fd = new FormData();
-    for (var key in data) {
-        fd.append(key, data[key]);
-    }
+    fd.append(name, value);
     $.ajax({
         method: 'PATCH',
         url: url,
@@ -84,8 +82,7 @@ function patch(path, id, data, actionType) {
         processData: false,
         headers: {'Authorization': 'Bearer ' + LoginStore.getAccessToken()}
     }).done(function(response) {
-        console.log('patched', response);
-        //ReceiveActionCreators.receive(response, actionType);
+        ReceiveActionCreators.patchedField(actionType, name);
     }).fail(function(error) {
         if (error.status === 401) {
             LoginActionCreators.expired();

@@ -6,10 +6,15 @@ var LoginStore = require('../stores/LoginStore');
 var StrategyList = require('./StrategyList.react');
 var Spinner = require('./Spinner.react');
 var BSAPIUtils = require('../utils/BSAPIUtils');
+var Spinner = require('./Spinner.react');
 
 function getStateFromStores(id) {
     var state = {campaign: CampaignStore.get(id)};
     if (state.campaign !== null) {
+        state.updating = {};
+        for (var key in state.campaign) {
+            state.updating[key] = false;
+        }
         state.brand = BrandStore.get(state.campaign.BrandUuid);
         state.account = AccountStore.get(state.campaign.BuyerAccountUuid);
     }
@@ -24,12 +29,14 @@ var Campaign = React.createClass({
 
     componentDidMount: function() {
         CampaignStore.addChangeListener(this._onChange);
+        CampaignStore.addPatchListener(this._onPatch);
         BrandStore.addChangeListener(this._onChange);
         AccountStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         CampaignStore.removeChangeListener(this._onChange);
+        CampaignStore.removePatchListener(this._onPatch);
         BrandStore.removeChangeListener(this._onChange);
         AccountStore.removeChangeListener(this._onChange);
     },
@@ -53,7 +60,6 @@ var Campaign = React.createClass({
                 <StrategyList params={{CampaignUuid: this.props.params.id}} />
                 <h3>Campaign Details</h3>
                 <form name="campaignForm" className="form-horizontal" role="form">
-                    {/* TODO: functional form */}
                     {this._inputField({name: 'CampaignName', label: 'Campaign Name'})}
                     {this._inputField({name: 'AgencyReference', label: 'Agency Reference'})}
                     {this._inputField({
@@ -100,6 +106,10 @@ var Campaign = React.createClass({
         var min = 'min' in options ? options.min : '';
         var max = 'max' in options ? options.max : '';
         var step = 'step' in options ? options.step : '';
+        var spinner;
+        if (this.state.updating[options.name]) {
+            spinner = (<div className='col-md-1'><Spinner /></div>);
+        }
         return (
             <div className="form-group">
                 <div className="col-md-3 text-right">
@@ -107,7 +117,7 @@ var Campaign = React.createClass({
                         {options.label}
                     </label>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-8">
                     <div className={fieldAddonClass}>
                         {fieldAddon}
                         <input id={`id-${options.name}`} name={options.name} value={value}
@@ -116,6 +126,7 @@ var Campaign = React.createClass({
                                min={min} max={max} step={step} />
                     </div>
                 </div>
+                {spinner}
             </div>
         );
     },
@@ -135,7 +146,7 @@ var Campaign = React.createClass({
                 <div className="col-md-3 text-right">
                     <label className="control-label">{options.label}</label>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-8">
                     <div>
                         <p className="form-control-static">{value}</p>
                     </div>
@@ -151,12 +162,17 @@ var Campaign = React.createClass({
         // Update our own state
         var campaign = this.state.campaign;
         campaign[event.target.name] = event.target.value;
-        this.setState({campaign: campaign});
+        var updating = this.state.updating;
+        updating[event.target.name] = true;
+        this.setState({campaign: campaign, updating: updating});
         // Update the API
-        var data = {};
-        data[event.target.name] = event.target.value;
-        BSAPIUtils.patchCampaign(this.props.params.id, data);
-        console.log(event, event.target.name, event.target.value);
+        BSAPIUtils.patchCampaign(
+            this.props.params.id, event.target.name, event.target.value);
+    },
+    _onPatch: function(name) {
+        var updating = this.state.updating;
+        updating[name] = false;
+        this.setState({updating: updating});
     }
 
 });

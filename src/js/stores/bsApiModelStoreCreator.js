@@ -6,12 +6,14 @@ var assign = require('object-assign');
 
 var ActionTypes = BSAPIConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
+var PATCH_EVENT = 'patch';
 
 module.exports = {
     // Create a model store that uses BSAPI
     // Options:
     // - getFunc
     // - receiveActionType
+    // - patchActionType
     // - modelId
     create: function(options) {
         var store = assign({}, EventEmitter.prototype, {
@@ -30,6 +32,18 @@ module.exports = {
 
             removeChangeListener: function(callback) {
                 this.removeListener(CHANGE_EVENT, callback);
+            },
+
+            emitPatch: function(name) {
+                this.emit(PATCH_EVENT, name);
+            },
+
+            addPatchListener: function(callback) {
+                this.on(PATCH_EVENT, callback);
+            },
+
+            removePatchListener: function(callback) {
+                this.removeListener(PATCH_EVENT, callback);
             },
 
             get: function(id) {
@@ -68,6 +82,10 @@ module.exports = {
                 case options.receiveActionType:
                     store._items[action.response[options.modelId]] = action.response;
                     store.emitChange();
+                    break;
+
+                case options.patchActionType:
+                    store.emitPatch(action.name);
                     break;
 
                 default:

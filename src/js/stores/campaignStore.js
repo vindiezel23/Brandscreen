@@ -7,5 +7,6 @@ var ActionTypes = BSAPIConstants.ActionTypes;
 module.exports = BSAPIModelStoreCreator.create({
     getFunc: BSAPIUtils.getCampaign,
     receiveActionType: ActionTypes.RECEIVE_CAMPAIGN,
+    patchActionType: ActionTypes.PATCH_CAMPAIGN,
     modelId: 'CampaignUuid'
 });
