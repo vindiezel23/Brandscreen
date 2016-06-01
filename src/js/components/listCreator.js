@@ -2,6 +2,8 @@ var LoginActionCreators = require('../actions/LoginActionCreators');
 var Pagination = require('../components/Pagination.react');
 var React = require('react');
 
+var ReactPropTypes = React.PropTypes;
+
 module.exports = {
     // Parameters:
     // - store
@@ -13,6 +15,10 @@ module.exports = {
     create: function(options) {
         return React.createClass({
 
+            propTypes: {
+                urlPrefix: ReactPropTypes.string
+            },
+
             _getStateFromStores: function() {
                 return {
                     items: options.store.items()
@@ -21,7 +27,8 @@ module.exports = {
 
             _getItem: function(item) {
                 return (
-                    <options.listItemComponent key={item[options.modelId]} value={item} />
+                    <options.listItemComponent key={item[options.modelId]} value={item}
+                                               urlPrefix={this.props.urlPrefix} />
                 );
             },
 

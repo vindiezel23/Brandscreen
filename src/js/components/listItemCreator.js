@@ -13,7 +13,14 @@ module.exports = {
         return React.createClass({
 
             propTypes: {
-                value: ReactPropTypes.object
+                value: ReactPropTypes.object.isRequired,
+                urlPrefix: ReactPropTypes.string
+            },
+
+            getDefaultProps: function() {
+                return {
+                    urlPrefix: ''
+                };
             },
 
             render: function() {
@@ -22,7 +29,7 @@ module.exports = {
                     if (i === 0) {
                         columns.push((
                             <td key={i}>
-                                <Link to={`/${options.path}/${this.props.value[options.modelId]}`}>
+                                <Link to={`${this.props.urlPrefix}/${options.path}/${this.props.value[options.modelId]}`}>
                                     {this.props.value[options.columns[i]]}
                                 </Link>
                             </td>

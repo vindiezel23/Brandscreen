@@ -11,10 +11,13 @@ module.exports = {
         LOGIN_EXPIRED: null,
         RECEIVE_CAMPAIGN_LIST: null,
         RECEIVE_STRATEGY_LIST: null,
+        RECEIVE_CREATIVE_LIST: null,
         RECEIVE_CAMPAIGN: null,
         RECEIVE_BRAND: null,
         RECEIVE_ACCOUNT: null,
-        PATCH_CAMPAIGN: null
+        RECEIVE_STRATEGY: null,
+        PATCH_CAMPAIGN: null,
+        PATCH_STRATEGY: null
     })
 
 };
