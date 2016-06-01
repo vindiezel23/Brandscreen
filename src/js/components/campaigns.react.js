@@ -1,11 +1,13 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var CampaignStore = require('../stores/CampaignStore');
+var StrategyStore = require('../stores/StrategyStore');
 var LoginStore = require('../stores/LoginStore');
 
 function getStateFromStores() {
     return {
         currentCampaign: CampaignStore.current(),
+        currentStrategy: StrategyStore.current(),
         isExpired: LoginStore.getAccessToken() === ''
     };
 }
@@ -35,15 +37,26 @@ var Campaigns = React.createClass({
             );
         }
         var campaignLink = null;
+        var strategyLink = null;
         if (this.state.currentCampaign !== null) {
+            var campaignUrl = `/campaign/${this.state.currentCampaign.CampaignUuid}`;
             campaignLink = (
                 <li>
-                    <ReactRouter.Link activeClassName="active"
-                                      to={`/campaign/${this.state.currentCampaign.CampaignUuid}`}>
+                    <ReactRouter.IndexLink activeClassName="active" to={campaignUrl}>
                         Campaign: {this.state.currentCampaign.CampaignName}
-                    </ReactRouter.Link>
+                    </ReactRouter.IndexLink>
                 </li>
             );
+            if (this.state.currentStrategy !== null) {
+                strategyLink = (
+                    <li>
+                        <ReactRouter.IndexLink activeClassName="active"
+                                               to={`${campaignUrl}/strategy/${this.state.currentStrategy.StrategyUuid}`}>
+                            Strategy: {this.state.currentStrategy.StrategyName}
+                        </ReactRouter.IndexLink>
+                    </li>
+                );
+            }
         }
         return (
             <div>
@@ -54,6 +67,7 @@ var Campaigns = React.createClass({
                         </ReactRouter.IndexLink>
                     </li>
                     {campaignLink}
+                    {strategyLink}
                 </ol>
                 {this.props.children}
             </div>

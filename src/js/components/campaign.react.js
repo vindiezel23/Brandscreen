@@ -2,11 +2,9 @@ var CampaignStore = require('../stores/CampaignStore');
 var BrandStore = require('../stores/BrandStore');
 var AccountStore = require('../stores/AccountStore');
 var React = require('react');
-var LoginStore = require('../stores/LoginStore');
+var Spinner = require('./Spinner.react');
 var StrategyList = require('./StrategyList.react');
-var Spinner = require('./Spinner.react');
 var BSAPIUtils = require('../utils/BSAPIUtils');
-var Spinner = require('./Spinner.react');
 
 function getStateFromStores(id) {
     var state = {campaign: CampaignStore.get(id)};
@@ -24,7 +22,7 @@ function getStateFromStores(id) {
 var Campaign = React.createClass({
 
     getInitialState: function() {
-        return getStateFromStores(this.props.params.id);
+        return getStateFromStores(this.props.params.CampaignUuid);
     },
 
     componentDidMount: function() {
@@ -57,9 +55,10 @@ var Campaign = React.createClass({
             <div>
                 <h2>{this.state.campaign.CampaignName}</h2>
                 <h3>Strategies</h3>
-                <StrategyList params={{CampaignUuid: this.props.params.id}} />
+                <StrategyList params={{CampaignUuid: this.props.params.CampaignUuid}}
+                              urlPrefix={`/campaign/${this.props.params.CampaignUuid}`} />
                 <h3>Campaign Details</h3>
-                <form name="campaignForm" className="form-horizontal" role="form">
+                <form className="form-horizontal" role="form">
                     {this._inputField({name: 'CampaignName', label: 'Campaign Name'})}
                     {this._inputField({name: 'AgencyReference', label: 'Agency Reference'})}
                     {this._inputField({
@@ -108,7 +107,11 @@ var Campaign = React.createClass({
         var step = 'step' in options ? options.step : '';
         var spinner;
         if (this.state.updating[options.name]) {
-            spinner = (<div className='col-md-1'><Spinner /></div>);
+            spinner = (
+                <div className='col-md-1'><div style={{paddingTop: "7px"}}>
+                    <Spinner />
+                </div></div>
+            );
         }
         return (
             <div className="form-group">
@@ -133,7 +136,7 @@ var Campaign = React.createClass({
 
     // Attributes:
     // - label
-    // - value (optional, default this.state.campaign[name])
+    // - value
     _staticField: function(options) {
         var value;
         if ('value' in options) {
@@ -156,7 +159,7 @@ var Campaign = React.createClass({
     },
 
     _onChange: function() {
-        this.setState(getStateFromStores(this.props.params.id));
+        this.setState(getStateFromStores(this.props.params.CampaignUuid));
     },
     _onFieldChange: function(event) {
         // Update our own state
@@ -167,7 +170,7 @@ var Campaign = React.createClass({
         this.setState({campaign: campaign, updating: updating});
         // Update the API
         BSAPIUtils.patchCampaign(
-            this.props.params.id, event.target.name, event.target.value);
+            this.props.params.CampaignUuid, event.target.name, event.target.value);
     },
     _onPatch: function(name) {
         var updating = this.state.updating;
