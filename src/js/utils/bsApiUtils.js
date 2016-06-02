@@ -14,6 +14,9 @@ module.exports = {
     getStrategies: getListFunc({
         path: 'strategies', actionType: ActionTypes.RECEIVE_STRATEGY_LIST
     }),
+    getCreatives: getListFunc({
+        path: 'creatives', actionType: ActionTypes.RECEIVE_CREATIVE_LIST
+    }),
 
     getCampaign: getModelFunc({
         path: 'campaigns', actionType: ActionTypes.RECEIVE_CAMPAIGN
@@ -24,9 +27,15 @@ module.exports = {
     getAccount: getModelFunc({
         path: 'accounts', actionType: ActionTypes.RECEIVE_ACCOUNT
     }),
+    getStrategy: getModelFunc({
+        path: 'strategies', actionType: ActionTypes.RECEIVE_STRATEGY
+    }),
 
     patchCampaign: function(id, name, value) {
         patch('campaigns', id, name, value, ActionTypes.PATCH_CAMPAIGN);
+    },
+    patchStrategy: function(id, name, value) {
+        patch('strategies', id, name, value, ActionTypes.PATCH_STRATEGY);
     }
 
 };
