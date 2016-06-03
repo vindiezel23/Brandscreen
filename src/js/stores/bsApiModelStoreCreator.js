@@ -60,6 +60,12 @@ module.exports = {
                     return this.get(this._currentId);
                 }
                 return null;
+            },
+
+            setCurrent: function(id) {
+                if (this._currentId === null) {
+                    this.get(id);
+                }
             }
 
         });

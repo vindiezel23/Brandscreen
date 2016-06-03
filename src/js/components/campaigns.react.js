@@ -20,11 +20,20 @@ var Campaigns = React.createClass({
 
     componentDidMount: function() {
         CampaignStore.addChangeListener(this._onChange);
+        StrategyStore.addChangeListener(this._onChange);
         LoginStore.addExpiredListener(this._onChange);
+        // If we have entities in the URL, attempt to load them
+        if ('CampaignUuid' in this.props.params) {
+            CampaignStore.setCurrent(this.props.params.CampaignUuid);
+        }
+        if ('StrategyUuid' in this.props.params) {
+            StrategyStore.setCurrent(this.props.params.StrategyUuid);
+        }
     },
 
     componentWillUnmount: function() {
         CampaignStore.removeChangeListener(this._onChange);
+        StrategyStore.removeChangeListener(this._onChange);
         LoginStore.removeExpiredListener(this._onChange);
     },
 
