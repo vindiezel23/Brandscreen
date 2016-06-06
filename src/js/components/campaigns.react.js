@@ -1,13 +1,12 @@
 var React = require('react');
 var ReactRouter = require('react-router');
-var CampaignStore = require('../stores/CampaignStore');
-var StrategyStore = require('../stores/StrategyStore');
+var stores = require('../stores/stores');
 var LoginStore = require('../stores/LoginStore');
 
 function getStateFromStores() {
     return {
-        currentCampaign: CampaignStore.current(),
-        currentStrategy: StrategyStore.current(),
+        currentCampaign: stores.Campaign.current(),
+        currentStrategy: stores.Strategy.current(),
         isExpired: LoginStore.getAccessToken() === ''
     };
 }
@@ -19,21 +18,21 @@ var Campaigns = React.createClass({
     },
 
     componentDidMount: function() {
-        CampaignStore.addChangeListener(this._onChange);
-        StrategyStore.addChangeListener(this._onChange);
+        stores.Campaign.addListeners(this._onChange, null);
+        stores.Strategy.addListeners(this._onChange, null);
         LoginStore.addExpiredListener(this._onChange);
         // If we have entities in the URL, attempt to load them
         if ('CampaignUuid' in this.props.params) {
-            CampaignStore.setCurrent(this.props.params.CampaignUuid);
+            stores.Campaign.setCurrent(this.props.params.CampaignUuid);
         }
         if ('StrategyUuid' in this.props.params) {
-            StrategyStore.setCurrent(this.props.params.StrategyUuid);
+            stores.Strategy.setCurrent(this.props.params.StrategyUuid);
         }
     },
 
     componentWillUnmount: function() {
-        CampaignStore.removeChangeListener(this._onChange);
-        StrategyStore.removeChangeListener(this._onChange);
+        stores.Campaign.removeListeners(this._onChange, null);
+        stores.Strategy.removeListeners(this._onChange, null);
         LoginStore.removeExpiredListener(this._onChange);
     },
 

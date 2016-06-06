@@ -1,5 +1,3 @@
-//var LoginStore = require('../stores/LoginStore');
-//var LoginActionCreators = require('../actions/LoginActionCreators');
 var React = require('react');
 
 var ReactPropTypes = React.PropTypes;
@@ -18,6 +16,7 @@ var Pagination = React.createClass({
     propTypes: {
         store: ReactPropTypes.object.isRequired,
         getFunc: React.PropTypes.func.isRequired,
+        params: React.PropTypes.object,
         linkCount: React.PropTypes.number
     },
 
@@ -30,6 +29,13 @@ var Pagination = React.createClass({
     },
 
     componentDidMount: function() {
+        // Get first page of results
+        var params = {};
+        if (this.props.params !== null) {
+            params = this.props.params;
+        }
+        params.PageNumber = 1;
+        this.props.getFunc(params);
         this.props.store.addChangeListener(this._onChange);
     },
 
@@ -38,7 +44,8 @@ var Pagination = React.createClass({
     },
 
     render: function() {
-        if (this.state.numPages === 0) {
+        // No need for pagination
+        if (this.state.pageCount <= 1) {
             return false;
         }
         var links = [];
@@ -118,7 +125,12 @@ var Pagination = React.createClass({
         event.preventDefault();
         if (pageNumber >= 1 && pageNumber <= this.state.pageCount) {
             this.setState({pageNumber: pageNumber, paginationNumber: pageNumber});
-            this.props.getFunc(pageNumber);
+            var params = {};
+            if (this.props.params !== null) {
+                params = this.props.params;
+            }
+            params.PageNumber = pageNumber;
+            this.props.getFunc(params);
         }
     },
 

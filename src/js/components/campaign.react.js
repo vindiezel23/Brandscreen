@@ -1,20 +1,19 @@
-var CampaignStore = require('../stores/CampaignStore');
-var BrandStore = require('../stores/BrandStore');
-var AccountStore = require('../stores/AccountStore');
+var stores = require('../stores/stores');
 var React = require('react');
 var Spinner = require('./Spinner.react');
 var StrategyList = require('./StrategyList.react');
 var BSAPIUtils = require('../utils/BSAPIUtils');
+var models = require('../models/models.js');
 
 function getStateFromStores(id) {
-    var state = {campaign: CampaignStore.get(id)};
+    var state = {campaign: stores.Campaign.get(id)};
     if (state.campaign !== null) {
         state.updating = {};
         for (var key in state.campaign) {
             state.updating[key] = false;
         }
-        state.brand = BrandStore.get(state.campaign.BrandUuid);
-        state.account = AccountStore.get(state.campaign.BuyerAccountUuid);
+        state.brand = stores.Brand.get(state.campaign.BrandUuid);
+        state.account = stores.Account.get(state.campaign.BuyerAccountUuid);
     }
     return state;
 }
@@ -26,17 +25,15 @@ var Campaign = React.createClass({
     },
 
     componentDidMount: function() {
-        CampaignStore.addChangeListener(this._onChange);
-        CampaignStore.addPatchListener(this._onPatch);
-        BrandStore.addChangeListener(this._onChange);
-        AccountStore.addChangeListener(this._onChange);
+        stores.Campaign.addListeners(this._onChange, this._onPatch);
+        stores.Brand.addListeners(this._onChange, null);
+        stores.Account.addListeners(this._onChange, null);
     },
 
     componentWillUnmount: function() {
-        CampaignStore.removeChangeListener(this._onChange);
-        CampaignStore.removePatchListener(this._onPatch);
-        BrandStore.removeChangeListener(this._onChange);
-        AccountStore.removeChangeListener(this._onChange);
+        stores.Campaign.removeListeners(this._onChange, this._onPatch);
+        stores.Brand.removeListeners(this._onChange, null);
+        stores.Account.removeListeners(this._onChange, null);
     },
 
     render: function() {
@@ -169,8 +166,9 @@ var Campaign = React.createClass({
         updating[event.target.name] = true;
         this.setState({campaign: campaign, updating: updating});
         // Update the API
-        BSAPIUtils.patchCampaign(
-            this.props.params.CampaignUuid, event.target.name, event.target.value);
+        BSAPIUtils.patch(
+            models.Campaign, this.props.params.CampaignUuid,
+            event.target.name, event.target.value);
     },
     _onPatch: function(name) {
         var updating = this.state.updating;

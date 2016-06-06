@@ -1,18 +1,18 @@
-var StrategyStore = require('../stores/StrategyStore');
-var AccountStore = require('../stores/AccountStore');
+var stores = require('../stores/stores');
 var React = require('react');
 var Spinner = require('./Spinner.react');
 var CreativeList = require('./CreativeList.react');
 var BSAPIUtils = require('../utils/BSAPIUtils');
+var models = require('../models/models.js');
 
 function getStateFromStores(id) {
-    var state = {strategy: StrategyStore.get(id)};
+    var state = {strategy: stores.Strategy.get(id)};
     if (state.strategy !== null) {
         state.updating = {};
         for (var key in state.strategy) {
             state.updating[key] = false;
         }
-        state.account = AccountStore.get(state.strategy.BuyerAccountUuid);
+        state.account = stores.Account.get(state.strategy.BuyerAccountUuid);
     }
     return state;
 }
@@ -24,15 +24,13 @@ var Strategy = React.createClass({
     },
 
     componentDidMount: function() {
-        StrategyStore.addChangeListener(this._onChange);
-        StrategyStore.addPatchListener(this._onPatch);
-        AccountStore.addChangeListener(this._onChange);
+        stores.Strategy.addListeners(this._onChange, this._onPatch);
+        stores.Account.addListeners(this._onChange, null);
     },
 
     componentWillUnmount: function() {
-        StrategyStore.removeChangeListener(this._onChange);
-        StrategyStore.removePatchListener(this._onPatch);
-        AccountStore.removeChangeListener(this._onChange);
+        stores.Strategy.removeListeners(this._onChange, this._onPatch);
+        stores.Account.removeListeners(this._onChange, null);
     },
 
     render: function() {
@@ -246,8 +244,9 @@ var Strategy = React.createClass({
         updating[event.target.name] = true;
         this.setState({strategy: strategy, updating: updating});
         // Update the API
-        BSAPIUtils.patchStrategy(
-            this.props.params.StrategyUuid, event.target.name, event.target.value);
+        BSAPIUtils.patch(
+            models.Strategy, this.props.params.StrategyUuid,
+            event.target.name, event.target.value);
     },
     _onPatch: function(name) {
         var updating = this.state.updating;
