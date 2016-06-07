@@ -18,24 +18,13 @@ module.exports = {
         path: 'creatives', actionType: ActionTypes.RECEIVE_CREATIVE_LIST
     }),
 
-    getCampaign: getModelFunc({
-        path: 'campaigns', actionType: ActionTypes.RECEIVE_CAMPAIGN
-    }),
-    getBrand: getModelFunc({
-        path: 'brands', actionType: ActionTypes.RECEIVE_BRAND
-    }),
-    getAccount: getModelFunc({
-        path: 'accounts', actionType: ActionTypes.RECEIVE_ACCOUNT
-    }),
-    getStrategy: getModelFunc({
-        path: 'strategies', actionType: ActionTypes.RECEIVE_STRATEGY
-    }),
-
-    patchCampaign: function(id, name, value) {
-        patch('campaigns', id, name, value, ActionTypes.PATCH_CAMPAIGN);
+    get: function(model, id, params) {
+        var url = BSAPIConstants.url + 'api/' + model.path + '/' + id;
+        get(url, params, 'RECEIVE_' + model.name);
     },
-    patchStrategy: function(id, name, value) {
-        patch('strategies', id, name, value, ActionTypes.PATCH_STRATEGY);
+
+    patch: function(model, id, name, value) {
+        patch(model.path, id, name, value, 'PATCH_' + model.name);
     }
 
 };
@@ -46,16 +35,6 @@ module.exports = {
 function getListFunc(options) {
     return function(params) {
         var url = BSAPIConstants.url + 'api/' + options.path;
-        get(url, params, options.actionType);
-    };
-}
-
-// Parameters
-// - path (i.e. GET url/api/<path>)
-// - actionType
-function getModelFunc(options) {
-    return function(id, params) {
-        var url = BSAPIConstants.url + 'api/' + options.path + '/' + id;
         get(url, params, options.actionType);
     };
 }
