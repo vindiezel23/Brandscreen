@@ -1,19 +1,22 @@
 var stores = require('../stores/stores');
 var React = require('react');
 var Spinner = require('./Spinner.react');
-var StrategyList = require('./StrategyList.react');
+var StrategyList = require('./lists.react').Strategy;
 var BSAPIUtils = require('../utils/BSAPIUtils');
 var models = require('../models/models.js');
 
+var model = models.Campaign;
+var store = stores.Campaign;
+
 function getStateFromStores(id) {
-    var state = {campaign: stores.Campaign.get(id)};
-    if (state.campaign !== null) {
+    var state = {item: store.get(id)};
+    if (state.item !== null) {
         state.updating = {};
-        for (var key in state.campaign) {
+        for (var key in state.item) {
             state.updating[key] = false;
         }
-        state.brand = stores.Brand.get(state.campaign.BrandUuid);
-        state.account = stores.Account.get(state.campaign.BuyerAccountUuid);
+        state.brand = stores.Brand.get(state.item.BrandUuid);
+        state.account = stores.Account.get(state.item.BuyerAccountUuid);
     }
     return state;
 }
@@ -21,23 +24,23 @@ function getStateFromStores(id) {
 var Campaign = React.createClass({
 
     getInitialState: function() {
-        return getStateFromStores(this.props.params.CampaignUuid);
+        return getStateFromStores(this.props.params[model.modelId]);
     },
 
     componentDidMount: function() {
-        stores.Campaign.addListeners(this._onChange, this._onPatch);
+        store.addListeners(this._onChange, this._onPatch);
         stores.Brand.addListeners(this._onChange, null);
         stores.Account.addListeners(this._onChange, null);
     },
 
     componentWillUnmount: function() {
-        stores.Campaign.removeListeners(this._onChange, this._onPatch);
+        store.removeListeners(this._onChange, this._onPatch);
         stores.Brand.removeListeners(this._onChange, null);
         stores.Account.removeListeners(this._onChange, null);
     },
 
     render: function() {
-        if (this.state.campaign === null) {
+        if (this.state.item === null) {
             return null;
         }
         var brandName = (<Spinner />);
@@ -50,10 +53,10 @@ var Campaign = React.createClass({
         }
         return (
             <div>
-                <h2>{this.state.campaign.CampaignName}</h2>
+                <h2>{this.state.item.CampaignName}</h2>
                 <h3>Strategies</h3>
-                <StrategyList params={{CampaignUuid: this.props.params.CampaignUuid}}
-                              urlPrefix={`/campaign/${this.props.params.CampaignUuid}`} />
+                <StrategyList params={{CampaignUuid: this.props.params[model.modelId]}}
+                              urlPrefix={`/${model.route}/${this.props.params[model.modelId]}`} />
                 <h3>Campaign Details</h3>
                 <form className="form-horizontal" role="form">
                     {this._inputField({name: 'CampaignName', label: 'Campaign Name'})}
@@ -75,7 +78,7 @@ var Campaign = React.createClass({
     // Attributes:
     // - name
     // - label
-    // - value (optional, default this.state.campaign[name])
+    // - value (optional, default this.state.item[name])
     // - type (optional, default text)
     // - min (optional)
     // - max (optional)
@@ -94,7 +97,7 @@ var Campaign = React.createClass({
         if ('value' in options) {
             value = options.value;
         } else {
-            value = this.state.campaign[options.name];
+            value = this.state.item[options.name];
         }
         if (!('type' in options)) {
             options.type = 'text';
@@ -133,13 +136,13 @@ var Campaign = React.createClass({
 
     // Attributes:
     // - label
-    // - value
+    // - value (optional, default this.state.item[name])
     _staticField: function(options) {
         var value;
         if ('value' in options) {
             value = options.value;
         } else {
-            value = this.state.campaign[options.name];
+            value = this.state.item[options.name];
         }
         return (
             <div className="form-group">
@@ -156,18 +159,18 @@ var Campaign = React.createClass({
     },
 
     _onChange: function() {
-        this.setState(getStateFromStores(this.props.params.CampaignUuid));
+        this.setState(getStateFromStores(this.props.params[model.modelId]));
     },
     _onFieldChange: function(event) {
         // Update our own state
-        var campaign = this.state.campaign;
-        campaign[event.target.name] = event.target.value;
+        var item = this.state.item;
+        item[event.target.name] = event.target.value;
         var updating = this.state.updating;
         updating[event.target.name] = true;
-        this.setState({campaign: campaign, updating: updating});
+        this.setState({item: item, updating: updating});
         // Update the API
         BSAPIUtils.patch(
-            models.Campaign, this.props.params.CampaignUuid,
+            model, this.props.params[model.modelId],
             event.target.name, event.target.value);
     },
     _onPatch: function(name) {

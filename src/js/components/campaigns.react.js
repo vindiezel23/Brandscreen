@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactRouter = require('react-router');
 var stores = require('../stores/stores');
+var models = require('../models/models');
 var LoginStore = require('../stores/LoginStore');
 
 function getStateFromStores() {
@@ -47,7 +48,7 @@ var Campaigns = React.createClass({
         var campaignLink = null;
         var strategyLink = null;
         if (this.state.currentCampaign !== null) {
-            var campaignUrl = `/campaign/${this.state.currentCampaign.CampaignUuid}`;
+            var campaignUrl = `/${models.Campaign.route}/${this.state.currentCampaign.CampaignUuid}`;
             campaignLink = (
                 <li>
                     <ReactRouter.IndexLink activeClassName="active" to={campaignUrl}>
@@ -59,7 +60,7 @@ var Campaigns = React.createClass({
                 strategyLink = (
                     <li>
                         <ReactRouter.IndexLink activeClassName="active"
-                                               to={`${campaignUrl}/strategy/${this.state.currentStrategy.StrategyUuid}`}>
+                                               to={`${campaignUrl}/${models.Strategy.route}/${this.state.currentStrategy.StrategyUuid}`}>
                             Strategy: {this.state.currentStrategy.StrategyName}
                         </ReactRouter.IndexLink>
                     </li>
@@ -70,7 +71,8 @@ var Campaigns = React.createClass({
             <div>
                 <ol className="breadcrumb">
                     <li>
-                        <ReactRouter.IndexLink activeClassName="active" to="/campaign">
+                        <ReactRouter.IndexLink activeClassName="active"
+                                               to={`/${models.Campaign.route}`}>
                             Campaigns
                         </ReactRouter.IndexLink>
                     </li>
