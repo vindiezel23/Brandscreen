@@ -10,6 +10,7 @@ var Campaigns = require('./components/Campaigns.react');
 var CampaignList = require('./components/lists.react').Campaign;
 var Campaign = require('./components/Campaign.react');
 var Strategy = require('./components/Strategy.react');
+var Creative = require('./components/Creative.react');
 var models = require('./models/models');
 
 ReactDOM.render((
@@ -22,8 +23,12 @@ ReactDOM.render((
                 <ReactRouter.Route path={`:${models.Campaign.modelId}`}>
                     <ReactRouter.IndexRoute component={Campaign} />
                     <ReactRouter.Route
-                        path={`${models.Strategy.route}/:${models.Strategy.modelId}`}
-                        component={Strategy} />
+                        path={`${models.Strategy.route}/:${models.Strategy.modelId}`}>
+                        <ReactRouter.IndexRoute component={Strategy} />
+                        <ReactRouter.Route
+                            path={`${models.Creative.route}/:${models.Creative.modelId}`}
+                            component={Creative} />
+                    </ReactRouter.Route>
                 </ReactRouter.Route>
             </ReactRouter.Route>
         </ReactRouter.Route>

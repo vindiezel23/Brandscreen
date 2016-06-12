@@ -9,6 +9,7 @@ module.exports = ModelFormCreator.create({
     model: model,
     otherModels: {brand: models.Brand, account: models.Account},
     renderFunc: function(component) {
+        var item = component.state.item;
         var brandName = (<Spinner />);
         if (component.state.brand !== null) {
             brandName = component.state.brand.BrandName;
@@ -19,11 +20,10 @@ module.exports = ModelFormCreator.create({
         }
         return (
             <div>
-                <h2>{component.state.item.CampaignName}</h2>
+                <h2>{item.CampaignName}</h2>
                 <h3>Strategies</h3>
-                <StrategyList
-                    params={{CampaignUuid: component.props.params[model.modelId]}}
-                    urlPrefix={`/${model.route}/${component.props.params[model.modelId]}`} />
+                <StrategyList params={{CampaignUuid: item[model.modelId]}}
+                              urlPrefix={`/${model.route}/${item[model.modelId]}`} />
                 <h3>Campaign Details</h3>
                 <form className="form-horizontal" role="form">
                     {component._inputField({
